@@ -21,7 +21,16 @@ const Learning = () => {
         <div className="  w-48 h-full box-content ">
           <SideBar setFileName={setFileName} />
         </div>
-        <div className=" bg-skin-editerDark w-full h-full box-border">
+        <div className=" bg-skin-editerDark w-full h-full box-border overflow-hidden">
+          <div className=" w-full h-12 bg-skin-editerDark text-white flex">
+            <div className="ml-10 mt-2">{file.name} </div>
+            <div className="ml-auto pr-5">
+              <button className="w-20 h-8 py-1 px-2 mx-4 bg-yellow-400">
+                PREVIEW
+              </button>
+              <button>RUN</button>
+            </div>
+          </div>
           <CodeEditer
             file={file}
             // theme={theme}

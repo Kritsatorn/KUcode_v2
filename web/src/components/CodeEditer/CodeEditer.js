@@ -13,13 +13,6 @@ const CodeEditer = ({
 }) => {
   return (
     <div className="w-full h-full overflow-hidden">
-      <div className=" w-full h-12 bg-skin-editerDark text-white flex">
-        <div className="ml-10 mt-2">{file.name} </div>
-        <div className="ml-auto">
-          <button>PREVIEW</button>
-          <button>RUN</button>
-        </div>
-      </div>
       <Editor
         height="calc(-3rem + 100% )" // By default, it fully fits with its parent
         theme={theme}
