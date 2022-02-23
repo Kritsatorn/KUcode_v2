@@ -42,6 +42,7 @@ const Learning = () => {
     eventListTyping,
     isRecordTyping,
   ] = useRecordEvent()
+
   useEffect(() => {
     if (isRecord === true) {
       startRecordTyping()
@@ -50,7 +51,9 @@ const Learning = () => {
     if (isRecord === false) {
       stopRecordTyping()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRecord])
+
   useEffect(() => {
     console.log('event list : ', eventListTyping)
   }, [eventListTyping])
