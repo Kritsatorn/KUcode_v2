@@ -68,7 +68,6 @@ const AudioPlayer = ({ onPlayFn, onPause, audioRef, audioURL }) => {
           setIsPlaying(false)
         }}
         onSeeking={() => {
-          console.log('Seeking!')
           audioRef.current.pause()
           setIsPlaying(false)
           cancelAnimationFrame(animationRef.current)

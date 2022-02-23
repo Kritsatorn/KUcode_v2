@@ -3,11 +3,16 @@ import Editor from '@monaco-editor/react'
 //   const myHeading = document.querySelector('h1');
 //   myHeading.textContent = 'Hello world!';
 // `
+const mapLanguage = {
+  javascript: 'JS',
+  css: 'CSS',
+  html: 'HTML',
+}
 const CodeEditer = ({
   file,
   theme = 'vs-dark',
   // language = 'javascript',
-  // code = initialCode,
+  code,
   handleEditorDidMount,
   handleEditorChange,
 }) => {
@@ -18,7 +23,7 @@ const CodeEditer = ({
         theme={theme}
         // language={language}
         loading={<div>LOAD</div>}
-        // value={code}
+        value={code[mapLanguage[file.language]]}
         editorDidMount={handleEditorDidMount}
         onChange={handleEditorChange}
         disable={true}

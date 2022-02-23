@@ -4,6 +4,11 @@ import CodeEditer from 'src/components/CodeEditer'
 import SideBar from 'src/components/SideBar'
 import files from 'src/utils/files'
 import { useState, useRef } from 'react'
+const mapLanguage = {
+  javascript: 'JS',
+  css: 'CSS',
+  html: 'HTML',
+}
 const Learning = () => {
   const audioRef = useRef(null)
   const [fileName, setFileName] = useState(Object.keys(files)[0])
@@ -12,20 +17,49 @@ const Learning = () => {
   const handleRecordBtn = () => {
     setIsRecord((prev) => !prev)
   }
+  const [iframeCode, setIframeCode] = useState('')
+  const [code, setCode] = useState({
+    JS: '',
+    CSS: '',
+    HTML: '',
+  })
+  const handleEditorChange = (value) => {
+    const updatedValue = {}
+    updatedValue[mapLanguage[file.language]] = value
+    setCode((prevCode) => ({ ...prevCode, ...updatedValue }))
+    console.log(mapLanguage[file.language], value, code)
+  }
+  const upadteIframe = (html, css, js) => {
+    console.log(code['HTML'])
+    setIframeCode(
+      `
+      <!DOCTYPE html>
+        <html>
+          <body> HAHA ${html}</body>
+          <style>${css}</style>
+          <script>${js}</script>
+        </html>
+      `
+    )
+  }
   return (
     <div className="w-full h-full">
-      <DnDIframe
-      // code={srcDoc}
-      />
+      <DnDIframe compiledCode={iframeCode} />
       <div className=" relative flex w-full h-full  ">
         <div className="  w-48 h-full box-content ">
           <SideBar setFileName={setFileName} />
         </div>
+        {/* Editer headBar */}
         <div className=" bg-skin-editerDark w-full h-full box-border overflow-hidden">
           <div className=" w-full h-12 bg-skin-editerDark text-white flex">
             <div className="ml-10 mt-2">{file.name} </div>
             <div className="ml-auto pr-5">
-              <button className="w-20 h-8 py-1 px-2 mx-4 bg-yellow-400">
+              <button
+                className="w-20 h-8 py-1 px-2 mx-4 bg-yellow-400"
+                onClick={() =>
+                  upadteIframe(code['HTML'], code['CSS'], code['JS'])
+                }
+              >
                 PREVIEW
               </button>
               <button>RUN</button>
@@ -35,9 +69,9 @@ const Learning = () => {
             file={file}
             // theme={theme}
             // language={language}
-            // code={code}
+            code={code}
             // handleEditorDidMount={handleEditorDidMount}
-            // handleEditorChange={handleEditorChange}
+            handleEditorChange={handleEditorChange}
           />
         </div>
       </div>
