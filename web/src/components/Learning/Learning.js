@@ -5,6 +5,7 @@ import SideBar from 'src/components/SideBar'
 import files from 'src/utils/files'
 import useIframe from 'src/hooks/useIframe'
 import useRecordEvent from 'src/hooks/useRecordEvent'
+import useReplayEvent from 'src/hooks/useReplayEvent'
 import { useState, useRef, useEffect } from 'react'
 const mapLanguage = {
   javascript: 'JS',
@@ -17,6 +18,7 @@ const Learning = () => {
   const [iframeCode, upadteIframe] = useIframe()
 
   const [isRecord, setIsRecord] = useState(false)
+  const [isReplay, setIsReplay] = useState(false)
   const handleRecordBtn = () => {
     setIsRecord((prev) => !prev)
   }
@@ -25,6 +27,7 @@ const Learning = () => {
     CSS: '',
     HTML: '',
   })
+
   const handleEditorChange = (value) => {
     const updatedValue = {}
     updatedValue[mapLanguage[file.language]] = value
@@ -57,6 +60,21 @@ const Learning = () => {
   useEffect(() => {
     console.log('event list : ', eventListTyping)
   }, [eventListTyping])
+
+  const [startReplayTyping, stopReplayTyping] = useReplayEvent()
+  const handleReplayBtn = () => {
+    setIsReplay((prev) => !prev)
+  }
+  useEffect(() => {
+    if (isReplay === true) {
+      startReplayTyping(0, eventListTyping, setCode)
+    }
+
+    if (isReplay === false) {
+      stopReplayTyping()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isReplay])
   return (
     <div className="w-full h-full">
       <DnDIframe compiledCode={iframeCode} />
@@ -96,6 +114,12 @@ const Learning = () => {
           onClick={handleRecordBtn}
         >
           {isRecord ? 'STOP' : 'RECORD'}
+        </button>
+        <button
+          className=" box-border w-20 h-8 py-1 px-2 ml-2 bg-yellow-300 text-sm "
+          onClick={handleReplayBtn}
+        >
+          {isReplay ? 'STOP' : 'RECORD'}
         </button>
         <AudioPlayer
           // onPlayFn={() => {
