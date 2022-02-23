@@ -1,5 +1,10 @@
 const LearningLayout = ({ children }) => {
-  return <>{children}</>
+  return (
+    <>
+      <div>HII Layouts</div>
+      <div>{children}</div>
+    </>
+  )
 }
 
 export default LearningLayout

@@ -5,9 +5,26 @@
  * to inject Tailwind's styles into your CSS.
  * For more information, see: https://tailwindcss.com/docs/installation#include-tailwind-in-your-css
  */
+
+
+/* fonts */
+
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;500;700&display=swap');
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
 /**
  * END --- SETUP TAILWINDCSS EDIT
  */
+
+@layer base {
+     :root {
+        --color-bg-base: #4a5667;
+        --color-bg-eitder-dark: #1e1e1e;
+        --color-bg-side: #2B2D33;
+        --color-bg-head-iframe: #E6E6E6;
+        --color-text-base: #6E7A82;
+        font-family: 'Karla', sans-serif;
+    }
+}
