@@ -3,6 +3,8 @@ import DnDIframe from 'src/components/DnDIframe'
 import CodeEditer from 'src/components/CodeEditer'
 import SideBar from 'src/components/SideBar'
 import files from 'src/utils/files'
+import useIframe from 'src/hooks/useIframe'
+// import useRecorder from 'src/hooks/useRecorder'
 import { useState, useRef } from 'react'
 const mapLanguage = {
   javascript: 'JS',
@@ -10,14 +12,14 @@ const mapLanguage = {
   html: 'HTML',
 }
 const Learning = () => {
-  const audioRef = useRef(null)
   const [fileName, setFileName] = useState(Object.keys(files)[0])
   const file = files[fileName]
+  const [iframeCode, upadteIframe] = useIframe()
+
   const [isRecord, setIsRecord] = useState(false)
   const handleRecordBtn = () => {
     setIsRecord((prev) => !prev)
   }
-  const [iframeCode, setIframeCode] = useState('')
   const [code, setCode] = useState({
     JS: '',
     CSS: '',
@@ -29,19 +31,9 @@ const Learning = () => {
     setCode((prevCode) => ({ ...prevCode, ...updatedValue }))
     console.log(mapLanguage[file.language], value, code)
   }
-  const upadteIframe = (html, css, js) => {
-    console.log(code['HTML'])
-    setIframeCode(
-      `
-      <!DOCTYPE html>
-        <html>
-          <body> HAHA ${html}</body>
-          <style>${css}</style>
-          <script>${js}</script>
-        </html>
-      `
-    )
-  }
+
+  const audioRef = useRef(null)
+  // let [audioURL, isRecording, startRecording, stopRecording] = useRecorder()
   return (
     <div className="w-full h-full">
       <DnDIframe compiledCode={iframeCode} />
