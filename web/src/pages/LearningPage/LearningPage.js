@@ -20,7 +20,9 @@ const LearningPage = () => {
             <CgProfile />
           </span>
         </div>
-        <Learning />
+        <div className="w-full h-page">
+          <Learning />
+        </div>
       </div>
     </>
   )

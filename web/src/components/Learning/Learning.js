@@ -2,9 +2,11 @@ import AudioPlayer from 'src/components/AudioPlayer'
 import DnDIframe from 'src/components/DnDIframe'
 import CodeEditer from 'src/components/CodeEditer'
 import SideBar from 'src/components/SideBar'
+import { useRef } from 'react'
 const Learning = () => {
+  const audioRef = useRef(null)
   return (
-    <div>
+    <div className="w-full h-full">
       <DnDIframe
       // code={srcDoc}
       />
@@ -22,18 +24,18 @@ const Learning = () => {
           />
         </div>
       </div>
-      <div className="z-10 left-0 bottom-0 fixed w-full h-10 ">
+      <div className="z-10 left-0 bottom-0 fixed w-full h-10">
         <AudioPlayer
-        // onPlayFn={() => {
-        //   let { currentTime } = audioRef.current
-        //   replayTyping(currentTime)
-        // }}
-        // onPause={() => {
-        //   clearTimeout(timeID.current)
-        //   timeID.current = null
-        // }}
-        // audioRef={audioRef}
-        // audioURL={soundUrl}
+          // onPlayFn={() => {
+          //   let { currentTime } = audioRef.current
+          //   replayTyping(currentTime)
+          // }}
+          // onPause={() => {
+          //   clearTimeout(timeID.current)
+          //   timeID.current = null
+          // }}
+          audioRef={audioRef}
+          // audioURL={soundUrl}
         />
       </div>
     </div>
