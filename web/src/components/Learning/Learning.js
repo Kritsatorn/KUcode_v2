@@ -4,8 +4,8 @@ import CodeEditer from 'src/components/CodeEditer'
 import SideBar from 'src/components/SideBar'
 import files from 'src/utils/files'
 import useIframe from 'src/hooks/useIframe'
-// import useRecorder from 'src/hooks/useRecorder'
-import { useState, useRef } from 'react'
+import useRecordEvent from 'src/hooks/useRecordEvent'
+import { useState, useRef, useEffect } from 'react'
 const mapLanguage = {
   javascript: 'JS',
   css: 'CSS',
@@ -29,11 +29,31 @@ const Learning = () => {
     const updatedValue = {}
     updatedValue[mapLanguage[file.language]] = value
     setCode((prevCode) => ({ ...prevCode, ...updatedValue }))
+    if (isRecordTyping) recordEventTyping(code)
     console.log(mapLanguage[file.language], value, code)
   }
 
   const audioRef = useRef(null)
-  // let [audioURL, isRecording, startRecording, stopRecording] = useRecorder()
+
+  const [
+    startRecordTyping,
+    stopRecordTyping,
+    recordEventTyping,
+    eventListTyping,
+    isRecordTyping,
+  ] = useRecordEvent()
+  useEffect(() => {
+    if (isRecord === true) {
+      startRecordTyping()
+    }
+
+    if (isRecord === false) {
+      stopRecordTyping()
+    }
+  }, [isRecord])
+  useEffect(() => {
+    console.log('event list : ', eventListTyping)
+  }, [eventListTyping])
   return (
     <div className="w-full h-full">
       <DnDIframe compiledCode={iframeCode} />
