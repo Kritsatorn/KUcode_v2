@@ -21,7 +21,6 @@ const Learning = () => {
   const [iframeCode, upadteIframe] = useIframe()
 
   const [isRecord, toggleIsRecord] = useToggle(false)
-  const [isReplay, toggleIsReplay] = useToggle(false)
 
   const [code, setCode] = useState({
     JS: '',
@@ -29,15 +28,10 @@ const Learning = () => {
     HTML: '',
   })
 
-  const handleEditorChange = (value) => {
-    const updatedValue = {}
-    updatedValue[mapLanguage[file.language]] = value
-    if (isRecordTyping) recordEventTyping({ ...code, ...updatedValue })
-    setCode((prevCode) => ({ ...prevCode, ...updatedValue }))
-  }
-
   const audioRef = useRef(null)
-
+  // eslint-disable-next-line no-unused-vars
+  const [audioURL, isRecording, startRecording, stopRecording] = useRecorder()
+  const [startReplayTyping, stopReplayTyping] = useReplayEvent()
   const [
     startRecordTyping,
     stopRecordTyping,
@@ -46,11 +40,6 @@ const Learning = () => {
     isRecordTyping,
   ] = useRecordEvent()
 
-  useEffect(() => {
-    console.log('use Effevent list : ', eventListTyping)
-  }, [eventListTyping])
-
-  const [startReplayTyping, stopReplayTyping] = useReplayEvent()
   useEffect(() => {
     if (isRecord === true) {
       startRecordTyping()
@@ -63,8 +52,14 @@ const Learning = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRecord])
-  // eslint-disable-next-line no-unused-vars
-  const [audioURL, isRecording, startRecording, stopRecording] = useRecorder()
+
+  const handleEditorChange = (value) => {
+    const updatedValue = {}
+    updatedValue[mapLanguage[file.language]] = value
+    if (isRecordTyping) recordEventTyping({ ...code, ...updatedValue })
+    setCode((prevCode) => ({ ...prevCode, ...updatedValue }))
+  }
+
   return (
     <div className="w-full h-full">
       <DnDIframe compiledCode={iframeCode} />
@@ -104,12 +99,6 @@ const Learning = () => {
           onClick={toggleIsRecord}
         >
           {isRecord ? 'STOP' : 'RECORD'}
-        </button>
-        <button
-          className=" box-border w-20 h-8 py-1 px-2 ml-2 bg-yellow-300 text-sm "
-          onClick={toggleIsReplay}
-        >
-          {isReplay ? 'STOP' : 'REPLAY'}
         </button>
         <AudioPlayer
           onPlayFn={() => {
