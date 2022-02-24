@@ -6,7 +6,7 @@ const style = {
   overflowX: 'hidden',
   border: 'solid 1px #ddd',
   background: 'gray',
-  zIndex: 2,
+  zIndex: 99,
   borderRadius: '4px',
 }
 const initialCode = `

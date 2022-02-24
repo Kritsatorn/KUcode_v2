@@ -25,6 +25,11 @@
         --color-bg-side: #2B2D33;
         --color-bg-head-iframe: #E6E6E6;
         --color-text-base: #6E7A82;
+        --color-bg-editor-editing: #1F1E1C;
+        --color-bg-editor-playing: #212328;
+        --color-text-console-label: #6C7A81;
+        --color-text-console-normal: #D4D4D4;
+        --color-border: #2A2E2F;
         font-family: 'Karla', sans-serif;
     }
 }
