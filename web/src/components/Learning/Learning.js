@@ -7,12 +7,14 @@ import useIframe from 'src/hooks/useIframe'
 import useToggle from 'src/hooks/useToggle'
 import useRecordEvent from 'src/hooks/useRecordEvent'
 import useReplayEvent from 'src/hooks/useReplayEvent'
+import useRecorder from 'src/hooks/useRecorder'
 import { useState, useRef, useEffect } from 'react'
 const mapLanguage = {
   javascript: 'JS',
   css: 'CSS',
   html: 'HTML',
 }
+
 const Learning = () => {
   const [fileName, setFileName] = useState(Object.keys(files)[0])
   const file = files[fileName]
@@ -30,8 +32,8 @@ const Learning = () => {
   const handleEditorChange = (value) => {
     const updatedValue = {}
     updatedValue[mapLanguage[file.language]] = value
-    setCode((prevCode) => ({ ...prevCode, ...updatedValue }))
     if (isRecordTyping) recordEventTyping({ ...code, ...updatedValue })
+    setCode((prevCode) => ({ ...prevCode, ...updatedValue }))
   }
 
   const audioRef = useRef(null)
@@ -45,32 +47,24 @@ const Learning = () => {
   ] = useRecordEvent()
 
   useEffect(() => {
-    if (isRecord === true) {
-      startRecordTyping()
-    }
-
-    if (isRecord === false) {
-      stopRecordTyping()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRecord])
-
-  useEffect(() => {
     console.log('use Effevent list : ', eventListTyping)
   }, [eventListTyping])
 
   const [startReplayTyping, stopReplayTyping] = useReplayEvent()
   useEffect(() => {
-    if (isReplay === true) {
-      console.log('START replay : ', eventListTyping)
-      startReplayTyping(0, eventListTyping, setCode)
+    if (isRecord === true) {
+      startRecordTyping()
+      startRecording()
     }
 
-    if (isReplay === false) {
-      stopReplayTyping()
+    if (isRecord === false) {
+      stopRecordTyping()
+      stopRecording()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isReplay])
+  }, [isRecord])
+  // eslint-disable-next-line no-unused-vars
+  const [audioURL, isRecording, startRecording, stopRecording] = useRecorder()
   return (
     <div className="w-full h-full">
       <DnDIframe compiledCode={iframeCode} />
@@ -118,16 +112,15 @@ const Learning = () => {
           {isReplay ? 'STOP' : 'REPLAY'}
         </button>
         <AudioPlayer
-          // onPlayFn={() => {
-          //   let { currentTime } = audioRef.current
-          //   replayTyping(currentTime)
-          // }}
-          // onPause={() => {
-          //   clearTimeout(timeID.current)
-          //   timeID.current = null
-          // }}
+          onPlayFn={() => {
+            startReplayTyping(0, eventListTyping, setCode)
+          }}
+          onPause={() => {
+            stopReplayTyping()
+          }}
           audioRef={audioRef}
           // audioURL={soundUrl}
+          audioURL={audioURL}
         />
       </div>
     </div>
