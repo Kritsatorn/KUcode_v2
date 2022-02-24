@@ -5,7 +5,13 @@ const mapLanguage = {
   css: 'CSS',
   html: 'HTML',
 }
-const CodeEditer = ({ file, code, isEditing, handleEditorChange }) => {
+const CodeEditer = ({
+  file,
+  code,
+  fontSize = 18,
+  isEditing,
+  handleEditorChange,
+}) => {
   const monaco = useMonaco()
   useEffect(() => {
     if (monaco) {
@@ -48,6 +54,14 @@ const CodeEditer = ({ file, code, isEditing, handleEditorChange }) => {
         path={file.name}
         defaultLanguage={file.language}
         defaultValue={file.value}
+        options={{
+          minimap: {
+            enabled: false,
+          },
+          fontSize: fontSize,
+          cursorStyle: 'block',
+          wordWrap: 'on',
+        }}
       />
     </div>
   )
