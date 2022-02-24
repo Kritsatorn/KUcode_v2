@@ -21,7 +21,7 @@ const Learning = () => {
   const [iframeCode, upadteIframe] = useIframe()
 
   const [isRecord, toggleIsRecord] = useToggle(false)
-
+  const [isEditing, setIsEditing] = useState(false)
   const [code, setCode] = useState({
     JS: '',
     CSS: '',
@@ -58,6 +58,7 @@ const Learning = () => {
     updatedValue[mapLanguage[file.language]] = value
     if (isRecordTyping) recordEventTyping({ ...code, ...updatedValue })
     setCode((prevCode) => ({ ...prevCode, ...updatedValue }))
+    setIsEditing(() => true)
   }
 
   return (
@@ -85,10 +86,8 @@ const Learning = () => {
           </div>
           <CodeEditer
             file={file}
-            // theme={theme}
-            // language={language}
             code={code}
-            // handleEditorDidMount={handleEditorDidMount}
+            isEditing={isEditing}
             handleEditorChange={handleEditorChange}
           />
         </div>
@@ -103,6 +102,7 @@ const Learning = () => {
         <AudioPlayer
           onPlayFn={() => {
             startReplayTyping(0, eventListTyping, setCode)
+            setIsEditing(() => false)
           }}
           onPause={() => {
             stopReplayTyping()

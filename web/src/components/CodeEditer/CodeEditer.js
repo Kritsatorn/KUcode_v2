@@ -1,30 +1,48 @@
-import Editor from '@monaco-editor/react'
-// const initialCode = `
-//   const myHeading = document.querySelector('h1');
-//   myHeading.textContent = 'Hello world!';
-// `
+import Editor, { useMonaco } from '@monaco-editor/react'
+import { useEffect } from 'react'
 const mapLanguage = {
   javascript: 'JS',
   css: 'CSS',
   html: 'HTML',
 }
-const CodeEditer = ({
-  file,
-  theme = 'vs-dark',
-  // language = 'javascript',
-  code,
-  handleEditorDidMount,
-  handleEditorChange,
-}) => {
+const CodeEditer = ({ file, code, isEditing, handleEditorChange }) => {
+  const monaco = useMonaco()
+  useEffect(() => {
+    if (monaco) {
+      monaco.editor.defineTheme('editing', {
+        base: 'vs-dark',
+        inherit: true,
+        rules: [],
+        colors: {
+          'editor.background': '#1F1E1C',
+        },
+      })
+      // my-theme 212328
+      monaco.editor.defineTheme('playing', {
+        base: 'vs-dark',
+        inherit: true,
+        rules: [],
+        colors: {
+          'editor.background': '#212328',
+        },
+      })
+      monaco.editor.setTheme('playing')
+    }
+  }, [monaco])
+  useEffect(() => {
+    if (isEditing === true) {
+      monaco?.editor.setTheme('editing')
+    }
+    if (isEditing === false) {
+      monaco?.editor.setTheme('playing')
+    }
+  }, [isEditing, monaco?.editor])
   return (
     <div className="w-full h-full overflow-hidden">
       <Editor
         height="calc(-3rem + 100% )" // By default, it fully fits with its parent
-        theme={theme}
-        // language={language}
         loading={<div>LOAD</div>}
         value={code[mapLanguage[file.language]]}
-        editorDidMount={handleEditorDidMount}
         onChange={handleEditorChange}
         disable={true}
         path={file.name}
