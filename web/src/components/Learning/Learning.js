@@ -4,6 +4,7 @@ import CodeEditer from 'src/components/CodeEditer'
 import SideBar from 'src/components/SideBar'
 import files from 'src/utils/files'
 import useIframe from 'src/hooks/useIframe'
+import useToggle from 'src/hooks/useToggle'
 import useRecordEvent from 'src/hooks/useRecordEvent'
 import useReplayEvent from 'src/hooks/useReplayEvent'
 import { useState, useRef, useEffect } from 'react'
@@ -17,11 +18,9 @@ const Learning = () => {
   const file = files[fileName]
   const [iframeCode, upadteIframe] = useIframe()
 
-  const [isRecord, setIsRecord] = useState(false)
-  const [isReplay, setIsReplay] = useState(false)
-  const handleRecordBtn = () => {
-    setIsRecord((prev) => !prev)
-  }
+  const [isRecord, toggleIsRecord] = useToggle(false)
+  const [isReplay, toggleIsReplay] = useToggle(false)
+
   const [code, setCode] = useState({
     JS: '',
     CSS: '',
@@ -32,8 +31,7 @@ const Learning = () => {
     const updatedValue = {}
     updatedValue[mapLanguage[file.language]] = value
     setCode((prevCode) => ({ ...prevCode, ...updatedValue }))
-    if (isRecordTyping) recordEventTyping(code)
-    console.log(mapLanguage[file.language], value, code)
+    if (isRecordTyping) recordEventTyping({ ...code, ...updatedValue })
   }
 
   const audioRef = useRef(null)
@@ -58,15 +56,13 @@ const Learning = () => {
   }, [isRecord])
 
   useEffect(() => {
-    console.log('event list : ', eventListTyping)
+    console.log('use Effevent list : ', eventListTyping)
   }, [eventListTyping])
 
   const [startReplayTyping, stopReplayTyping] = useReplayEvent()
-  const handleReplayBtn = () => {
-    setIsReplay((prev) => !prev)
-  }
   useEffect(() => {
     if (isReplay === true) {
+      console.log('START replay : ', eventListTyping)
       startReplayTyping(0, eventListTyping, setCode)
     }
 
@@ -111,15 +107,15 @@ const Learning = () => {
       <div className="z-10 left-0 bottom-0 fixed w-full h-10 flex">
         <button
           className=" box-border w-20 h-8 py-1 px-2 ml-2 bg-yellow-300 text-sm "
-          onClick={handleRecordBtn}
+          onClick={toggleIsRecord}
         >
           {isRecord ? 'STOP' : 'RECORD'}
         </button>
         <button
           className=" box-border w-20 h-8 py-1 px-2 ml-2 bg-yellow-300 text-sm "
-          onClick={handleReplayBtn}
+          onClick={toggleIsReplay}
         >
-          {isReplay ? 'STOP' : 'RECORD'}
+          {isReplay ? 'STOP' : 'REPLAY'}
         </button>
         <AudioPlayer
           // onPlayFn={() => {
