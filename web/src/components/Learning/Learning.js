@@ -3,6 +3,7 @@ import DnDIframe from 'src/components/DnDIframe'
 import CodeEditer from 'src/components/CodeEditer'
 import SideBar from 'src/components/SideBar'
 import Console from 'src/components/Console'
+import TeacherSlide from 'src/components/TeacherSlide'
 import files from 'src/utils/files'
 import useIframe from 'src/hooks/useIframe'
 import useToggle from 'src/hooks/useToggle'
@@ -93,8 +94,11 @@ const Learning = () => {
       />
       <DnDIframe compiledCode={iframeCode} />
 
-      <div className="w-56 box-content ">
+      <div className="w-56 box-content relative ">
         <SideBar setFileName={setFileName} />
+        <div className=" z-50 absolute left-0 bottom-10 w-full h-40 ">
+          <TeacherSlide />
+        </div>
       </div>
 
       <div className=" flex-1 bg-skin-playing box-border overflow-hidden relative">

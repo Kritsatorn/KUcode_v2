@@ -24,12 +24,22 @@ module.exports = {
       },
       height: {
         page: 'calc(-2.5rem + 100vh)',
+        slide: '45vw',
       },
       width: {
         editer: 'calc(-12rem + 100% )',
+        slide: '80vw',
       },
       fontFamily: {
         karla: ['Karla', 'sans-serif'],
+      },
+      transitionProperty: {
+        width: 'width',
+        height: 'height',
+      },
+      translate: {
+        slideY: 'calc(45vw + 10vh - 13.5rem)',
+        slideX: '10vw',
       },
     },
   },
