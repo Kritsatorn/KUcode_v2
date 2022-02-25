@@ -7,7 +7,7 @@ const LearningPage = () => {
     <>
       <MetaTags title="Learning" description="Learning page" />
 
-      <div className=" w-full h-screen box-boarder bg-red-300">
+      <div className=" w-full h-screen box-boarder bg-red-300 flex flex-col">
         <div className="headbar w-full h-10 py-1 px-5 text-sm flex justify-start items-center bg-skin-base text-white">
           <span className="icon text-2xl mt-1 mx-3">
             <FiCodesandbox />
@@ -20,7 +20,7 @@ const LearningPage = () => {
             <CgProfile />
           </span>
         </div>
-        <div className="w-full h-page">
+        <div className="flex-1">
           <Learning />
         </div>
       </div>

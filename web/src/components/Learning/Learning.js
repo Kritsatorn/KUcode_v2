@@ -86,57 +86,57 @@ const Learning = () => {
     })
   }, [])
   return (
-    <div className="w-full h-full overflow-hidden">
+    <div className="w-full h-full overflow-hidden flex">
       <Toaster
         position="bottom-center"
         toastOptions={{ success: { duration: 3000 } }}
       />
       <DnDIframe compiledCode={iframeCode} />
-      <div className=" relative flex w-full h-full  ">
-        <div className="w-48 h-full box-content ">
-          <SideBar setFileName={setFileName} />
-        </div>
 
-        <div className=" bg-skin-playing w-full h-full box-border overflow-hidden relative">
-          {/* Editer headBar */}
-          <div className=" w-full h-12 bg-skin-editerDark text-white flex">
-            <div className="ml-10 mt-2">{file.name} </div>
-            <div className="ml-auto pr-5">
-              <button
-                className="w-20 h-8 py-1 px-2 mx-4 bg-yellow-400"
-                onClick={() =>
-                  upadteIframe(code['HTML'], code['CSS'], code['JS'])
-                }
-              >
-                PREVIEW
-              </button>
-              <button className="w-20 h-8 py-1 px-2 mx-4 bg-yellow-400">
-                RUN
-              </button>
-              <button
-                className="w-20 h-8 py-1 px-2 mx-4 bg-yellow-400"
-                onClick={() => {
-                  toggleIsConsole()
-                }}
-              >
-                console
-              </button>
-            </div>
-          </div>
-          <CodeEditer
-            file={file}
-            code={code}
-            isEditing={isEditing}
-            handleEditorChange={handleEditorChange}
-          />
-          <Console
-            isEditing={isEditing}
-            isOpen={isConsole}
-            toggleIsOpen={toggleIsConsole}
-            consoleList={consoleList}
-          />
-        </div>
+      <div className="w-56 box-content ">
+        <SideBar setFileName={setFileName} />
       </div>
+
+      <div className=" flex-1 bg-skin-playing box-border overflow-hidden relative">
+        {/* Editer headBar */}
+        <div className=" w-full h-12 bg-skin-editerDark text-white flex">
+          <div className="ml-10 mt-2">{file.name} </div>
+          <div className="ml-auto pr-5">
+            <button
+              className="w-20 h-8 py-1 px-2 mx-4 bg-yellow-400"
+              onClick={() =>
+                upadteIframe(code['HTML'], code['CSS'], code['JS'])
+              }
+            >
+              PREVIEW
+            </button>
+            <button className="w-20 h-8 py-1 px-2 mx-4 bg-yellow-400">
+              RUN
+            </button>
+            <button
+              className="w-20 h-8 py-1 px-2 mx-4 bg-yellow-400"
+              onClick={() => {
+                toggleIsConsole()
+              }}
+            >
+              console
+            </button>
+          </div>
+        </div>
+        <CodeEditer
+          file={file}
+          code={code}
+          isEditing={isEditing}
+          handleEditorChange={handleEditorChange}
+        />
+        <Console
+          isEditing={isEditing}
+          isOpen={isConsole}
+          toggleIsOpen={toggleIsConsole}
+          consoleList={consoleList}
+        />
+      </div>
+
       <div className="z-10 left-0 bottom-0 fixed w-full h-10 flex">
         <button
           className=" box-border w-20 h-8 py-1 px-2 ml-2 bg-yellow-300 text-sm "
