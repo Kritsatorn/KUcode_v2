@@ -21,9 +21,9 @@ const initialCode = `
   </html>
 `
 
-const DnDIframe = ({ compiledCode = initialCode }) => {
+const DnDIframe = ({ compiledCode = initialCode, isOpen }) => {
   return (
-    <div>
+    <div className={`${isOpen ? '' : ' invisible'}`}>
       <Rnd
         style={style}
         default={{

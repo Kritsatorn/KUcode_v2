@@ -26,6 +26,7 @@ const Learning = () => {
   const [isRecord, toggleIsRecord] = useToggle(false)
   const [isEditing, setIsEditing] = useState(false)
   const [isConsole, toggleIsConsole] = useToggle(false)
+  const [isIframe, toggleIframe] = useToggle(false)
 
   const [code, setCode] = useState({
     JS: `
@@ -92,7 +93,7 @@ const Learning = () => {
         position="bottom-center"
         toastOptions={{ success: { duration: 3000 } }}
       />
-      <DnDIframe compiledCode={iframeCode} />
+      <DnDIframe compiledCode={iframeCode} isOpen={isIframe} />
 
       <div className="w-56 box-content relative ">
         <SideBar setFileName={setFileName} />
@@ -108,13 +109,16 @@ const Learning = () => {
           <div className="ml-auto pr-5">
             <button
               className="w-20 h-8 py-1 px-2 mx-4 bg-yellow-400"
+              onClick={() => toggleIframe()}
+            >
+              PREVIEW
+            </button>
+            <button
+              className="w-20 h-8 py-1 px-2 mx-4 bg-yellow-400"
               onClick={() =>
                 upadteIframe(code['HTML'], code['CSS'], code['JS'])
               }
             >
-              PREVIEW
-            </button>
-            <button className="w-20 h-8 py-1 px-2 mx-4 bg-yellow-400">
               RUN
             </button>
             <button
