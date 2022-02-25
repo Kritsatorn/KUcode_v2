@@ -9,6 +9,7 @@ import useToggle from 'src/hooks/useToggle'
 import useRecordEvent from 'src/hooks/useRecordEvent'
 import useReplayEvent from 'src/hooks/useReplayEvent'
 import useRecorder from 'src/hooks/useRecorder'
+import { Toaster, toast } from '@redwoodjs/web/toast'
 import { useState, useRef, useEffect } from 'react'
 const mapLanguage = {
   javascript: 'JS',
@@ -61,6 +62,11 @@ const Learning = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRecord])
+  useEffect(() => {
+    if (isEditing == true) {
+      toast('Start Editing')
+    }
+  }, [isEditing])
 
   const handleEditorChange = (value) => {
     const updatedValue = {}
@@ -80,14 +86,19 @@ const Learning = () => {
     })
   }, [])
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full overflow-hidden">
+      <Toaster
+        position="bottom-center"
+        toastOptions={{ success: { duration: 3000 } }}
+      />
       <DnDIframe compiledCode={iframeCode} />
       <div className=" relative flex w-full h-full  ">
         <div className="w-48 h-full box-content ">
           <SideBar setFileName={setFileName} />
         </div>
-        {/* Editer headBar */}
-        <div className=" bg-skin-editerDark w-full h-full box-border overflow-hidden relative">
+
+        <div className=" bg-skin-playing w-full h-full box-border overflow-hidden relative">
+          {/* Editer headBar */}
           <div className=" w-full h-12 bg-skin-editerDark text-white flex">
             <div className="ml-10 mt-2">{file.name} </div>
             <div className="ml-auto pr-5">

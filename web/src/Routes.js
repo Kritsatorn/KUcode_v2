@@ -12,9 +12,8 @@ import LearningLayout from 'src/layouts/LearningLayout/'
 const Routes = () => {
   return (
     <Router>
-      <Set wrap={LearningLayout}>
-        <Route path="/home" page={HomePage} name="home" />
-      </Set>
+      <Set wrap={LearningLayout}></Set>
+      <Route path="/home" page={HomePage} name="home" />
       <Route path="/learning" page={LearningPage} name="learning" />
 
       <Route notfound page={NotFoundPage} />
