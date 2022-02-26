@@ -3,6 +3,7 @@ import DnDIframe from 'src/components/DnDIframe'
 import CodeEditer from 'src/components/CodeEditer'
 import SideBar from 'src/components/SideBar'
 import Console from 'src/components/Console'
+import Cursor from 'src/components/Cursor'
 import TeacherSlide from 'src/components/TeacherSlide'
 import files from 'src/utils/files'
 import useIframe from 'src/hooks/useIframe'
@@ -10,6 +11,7 @@ import useToggle from 'src/hooks/useToggle'
 import useRecordEvent from 'src/hooks/useRecordEvent'
 import useReplayEvent from 'src/hooks/useReplayEvent'
 import useRecorder from 'src/hooks/useRecorder'
+import useCursor from 'src/hooks/useCursor'
 import { Toaster, toast } from '@redwoodjs/web/toast'
 import { useState, useRef, useEffect } from 'react'
 const mapLanguage = {
@@ -28,6 +30,11 @@ const Learning = () => {
   const [isConsole, toggleIsConsole] = useToggle(false)
   const [isIframe, toggleIframe] = useToggle(false)
 
+  const [position, hidden] = useCursor()
+
+  useEffect(() => {
+    console.log(position, hidden)
+  }, [position, hidden])
   const [code, setCode] = useState({
     JS: `
     document.getElementById("myBtn").addEventListener("click", fuck);
@@ -88,16 +95,16 @@ const Learning = () => {
     })
   }, [])
   return (
-    <div className="w-full h-full overflow-hidden flex">
+    <div className="w-full h-full overflow-hidden flex relative">
       <Toaster
         position="bottom-center"
         toastOptions={{ success: { duration: 3000 } }}
       />
       <DnDIframe compiledCode={iframeCode} isOpen={isIframe} />
-
+      <Cursor position={position} hidden={hidden} offsetY={'-2.5rem'} />
       <div className="w-56 box-content relative ">
         <SideBar setFileName={setFileName} />
-        <div className=" z-50 absolute left-0 bottom-10 w-full h-40 ">
+        <div className=" z-40 absolute left-0 bottom-10 w-full h-40 ">
           <TeacherSlide />
         </div>
       </div>

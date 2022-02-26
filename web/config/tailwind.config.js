@@ -4,6 +4,7 @@ module.exports = {
     extend: {
       colors: {
         'color-border': 'var(--color-border)',
+        'primary-blue': 'var(--color-primary-blue)',
       },
       textColor: {
         skin: {
@@ -40,6 +41,9 @@ module.exports = {
       translate: {
         slideY: 'calc(45vw + 10vh - 13.5rem)',
         slideX: '10vw',
+      },
+      rotate: {
+        60: '60deg',
       },
     },
   },
