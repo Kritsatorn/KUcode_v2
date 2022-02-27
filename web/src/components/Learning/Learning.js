@@ -26,6 +26,7 @@ const Learning = () => {
   const file = files[fileName]
   const [iframeCode, upadteIframe] = useIframe()
 
+  // On/Off state
   const [isRecord, toggleIsRecord] = useToggle(false)
   const [isEditing, setIsEditing] = useState(false)
   const [isConsole, toggleIsConsole] = useToggle(false)
@@ -44,9 +45,10 @@ const Learning = () => {
   })
 
   const audioRef = useRef(null)
-
   // eslint-disable-next-line no-unused-vars
   const [audioURL, isRecording, startRecording, stopRecording] = useRecorder()
+  // Typing
+  // { JS:'' , CSS:'' , HTML:''}
   const [startReplayTyping, stopReplayTyping] = useReplayEvent()
   const [
     startRecordTyping,
@@ -55,6 +57,14 @@ const Learning = () => {
     eventListTyping,
     isRecordTyping,
   ] = useRecordEvent()
+  const handleEditorChange = (value) => {
+    const updatedValue = {}
+    updatedValue[mapLanguage[file.language]] = value
+    if (isRecordTyping) recordEventTyping({ ...code, ...updatedValue })
+    setCode((prevCode) => ({ ...prevCode, ...updatedValue }))
+    setIsEditing(() => true)
+  }
+
   // Cursor
   // { position : { x , y }, hidden }
   const [position, hidden, updateCursor] = useCursor()
@@ -71,6 +81,7 @@ const Learning = () => {
       recordEventCursor({ ...position, hidden })
     }
   }, [position, hidden])
+
   // Slide
   // { isOpen , Page }
   const [slide, setSlide] = useState({ isOpen: false, PageNumber: 0 })
@@ -90,6 +101,8 @@ const Learning = () => {
   const updateSlide = ({ isOpen, PageNumber }) => {
     setSlide({ isOpen: isOpen, PageNumber: PageNumber })
   }
+
+  // All State Records
   useEffect(() => {
     if (isRecord === true) {
       startRecordTyping()
@@ -106,19 +119,14 @@ const Learning = () => {
     }
   }, [isRecord])
 
+  // Toaster Noti
   useEffect(() => {
     if (isEditing == true) {
       toast('Start Editing')
     }
   }, [isEditing])
 
-  const handleEditorChange = (value) => {
-    const updatedValue = {}
-    updatedValue[mapLanguage[file.language]] = value
-    if (isRecordTyping) recordEventTyping({ ...code, ...updatedValue })
-    setCode((prevCode) => ({ ...prevCode, ...updatedValue }))
-    setIsEditing(() => true)
-  }
+  // Console
   const [consoleList, setConsoleList] = useState([])
   useEffect(() => {
     window.addEventListener('message', (e) => {
