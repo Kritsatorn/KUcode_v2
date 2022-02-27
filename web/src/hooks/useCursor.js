@@ -26,6 +26,10 @@ const useCursor = () => {
   const onMouseLeave = () => {
     setHidden(() => true)
   }
-  return [position, hidden]
+  const updateCursor = ({ x, y, hidden }) => {
+    setPosition({ x: x, y: y })
+    setHidden(hidden)
+  }
+  return [position, hidden, updateCursor]
 }
 export default useCursor

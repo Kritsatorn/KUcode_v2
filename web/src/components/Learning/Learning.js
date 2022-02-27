@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import AudioPlayer from 'src/components/AudioPlayer'
 import DnDIframe from 'src/components/DnDIframe'
 import CodeEditer from 'src/components/CodeEditer'
@@ -30,11 +31,7 @@ const Learning = () => {
   const [isConsole, toggleIsConsole] = useToggle(false)
   const [isIframe, toggleIframe] = useToggle(false)
 
-  const [position, hidden] = useCursor()
-
-  useEffect(() => {
-    console.log(position, hidden)
-  }, [position, hidden])
+  const [position, hidden, updateCursor] = useCursor()
   const [code, setCode] = useState({
     JS: `
     document.getElementById("myBtn").addEventListener("click", fuck);
@@ -48,6 +45,7 @@ const Learning = () => {
   })
 
   const audioRef = useRef(null)
+
   // eslint-disable-next-line no-unused-vars
   const [audioURL, isRecording, startRecording, stopRecording] = useRecorder()
   const [startReplayTyping, stopReplayTyping] = useReplayEvent()
@@ -58,19 +56,37 @@ const Learning = () => {
     eventListTyping,
     isRecordTyping,
   ] = useRecordEvent()
+  // Cursor
+  const [startReplayCursor, stopReplayCursor] = useReplayEvent()
+  const [
+    startRecordCursor,
+    stopRecordCursor,
+    recordEventCursor,
+    eventListCursor,
+    isRecordCursor,
+  ] = useRecordEvent()
 
   useEffect(() => {
     if (isRecord === true) {
       startRecordTyping()
+      startRecordCursor()
       startRecording()
     }
 
     if (isRecord === false) {
       stopRecordTyping()
+      stopRecordCursor()
       stopRecording()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isRecord])
+
+  useEffect(() => {
+    // console.log({ ...position, hidden })
+    if (isRecordCursor === true) {
+      recordEventCursor({ ...position, hidden })
+    }
+  }, [position, hidden])
+
   useEffect(() => {
     if (isEditing == true) {
       toast('Start Editing')
@@ -162,10 +178,12 @@ const Learning = () => {
         <AudioPlayer
           onPlayFn={() => {
             startReplayTyping(0, eventListTyping, setCode)
+            startReplayCursor(0, eventListCursor, updateCursor)
             setIsEditing(() => false)
           }}
           onPause={() => {
             stopReplayTyping()
+            stopReplayCursor()
           }}
           audioRef={audioRef}
           // audioURL={soundUrl}
