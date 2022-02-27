@@ -190,7 +190,7 @@ const Learning = () => {
           <div className="ml-10 mt-2">{file.name} </div>
           <div className="ml-auto pr-1 flex justify-center items-center">
             <button
-              className="font-bold text-xs py-1 px-2 mx-1 rounded flex bg-green-500 hover:bg-green-400 "
+              className="font-bold text-xs py-1 px-2 mx-1 rounded flex bg-green-500 hover:bg-green-400"
               onClick={() =>
                 upadteIframe(code['HTML'], code['CSS'], code['JS'])
               }
