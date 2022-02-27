@@ -1,6 +1,6 @@
 import { Rnd } from 'react-rnd'
 import { FaCircle } from 'react-icons/fa'
-
+import { useRef } from 'react'
 const style = {
   overflow: 'hidden',
   overflowX: 'hidden',
@@ -8,6 +8,7 @@ const style = {
   background: 'gray',
   zIndex: 99,
   borderRadius: '4px',
+  // transition: 'all 0.5s linear',
 }
 const initialCode = `
   <!DOCTYPE html>
@@ -20,12 +21,17 @@ const initialCode = `
     </body>
   </html>
 `
-
-const DnDIframe = ({ compiledCode = initialCode, isOpen }) => {
+const defaultSize = { width: 320, height: 350 }
+const defaultBigSize = { width: 520, height: 550 }
+const defaultPosition = { x: 1100, y: 100 }
+const defaultBigPosition = { x: 900, y: 50 }
+const DnDIframe = ({ compiledCode = initialCode, isOpen, setClose }) => {
+  const rnd = useRef(null)
   return (
     <div className={`${isOpen ? '' : ' invisible'}`}>
       <Rnd
         style={style}
+        ref={rnd}
         default={{
           x: 1100,
           y: 100,
@@ -33,16 +39,28 @@ const DnDIframe = ({ compiledCode = initialCode, isOpen }) => {
           height: 350,
         }}
       >
-        <div className="iframe-headbar w-full h-8 fixed left-0 top-0 bg-skin-headIframe pl-2 text-sm flex items-center ">
-          <div className="btn-iframe btn-close mx-1 ">
+        <div className="w-full h-8 fixed left-0 top-0 bg-skin-headIframe pl-2 text-sm flex items-center">
+          <button className="mx-1 text-red-400" onClick={() => setClose()}>
             <FaCircle />
-          </div>
-          <div className="btn-iframe btn-min mx-1">
+          </button>
+          <button
+            className="mx-1 text-yellow-400"
+            onClick={() => {
+              rnd.current.updateSize({ ...defaultSize })
+              rnd.current.updatePosition({ ...defaultPosition })
+            }}
+          >
             <FaCircle />
-          </div>
-          <div className="btn-iframe btn-max mx-1">
+          </button>
+          <button
+            className="mx-1 text-green-400"
+            onClick={() => {
+              rnd.current.updateSize({ ...defaultBigSize })
+              rnd.current.updatePosition({ ...defaultBigPosition })
+            }}
+          >
             <FaCircle />
-          </div>
+          </button>
         </div>
         <iframe
           className="pt-8"

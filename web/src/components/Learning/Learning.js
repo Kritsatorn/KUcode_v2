@@ -9,6 +9,7 @@ import TeacherSlide from 'src/components/TeacherSlide'
 import files from 'src/utils/files'
 import useIframe from 'src/hooks/useIframe'
 import useToggle from 'src/hooks/useToggle'
+import useToggleState from 'src/hooks/useToggleState'
 import useRecordEvent from 'src/hooks/useRecordEvent'
 import useReplayEvent from 'src/hooks/useReplayEvent'
 import useRecorder from 'src/hooks/useRecorder'
@@ -32,7 +33,9 @@ const Learning = () => {
   const [isRecord, toggleIsRecord] = useToggle(false)
   const [isEditing, setIsEditing] = useState(false)
   const [isConsole, toggleIsConsole] = useToggle(false)
-  const [isIframe, toggleIframe] = useToggle(false)
+  // eslint-disable-next-line no-unused-vars
+  const [isIframe, setIframeTrue, setIframeFalse, toggleIframe] =
+    useToggleState(false)
 
   const [code, setCode] = useState({
     JS: `
@@ -161,7 +164,11 @@ const Learning = () => {
         position="bottom-center"
         toastOptions={{ success: { duration: 3000 } }}
       />
-      <DnDIframe compiledCode={iframeCode} isOpen={isIframe} />
+      <DnDIframe
+        compiledCode={iframeCode}
+        isOpen={isIframe}
+        setClose={setIframeFalse}
+      />
       {isReplay && (
         <Cursor position={position} hidden={hidden} offsetY={'-2.5rem'} />
       )}
