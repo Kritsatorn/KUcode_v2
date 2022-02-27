@@ -81,7 +81,6 @@ const TeacherSlide = ({
         setIsOpenTrue()
       }}
     >
-      {console.log('props :', isOpenProp, pageNumber, isOpen, slide)}
       <img
         className="object-contain object-center"
         src={imgSlide[slide].src}
