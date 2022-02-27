@@ -4,6 +4,7 @@ module.exports = {
     extend: {
       colors: {
         'color-border': 'var(--color-border)',
+        base: 'var(--color-bg-base)',
         'primary-blue': 'var(--color-primary-blue)',
       },
       textColor: {

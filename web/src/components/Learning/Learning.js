@@ -13,6 +13,7 @@ import useRecordEvent from 'src/hooks/useRecordEvent'
 import useReplayEvent from 'src/hooks/useReplayEvent'
 import useRecorder from 'src/hooks/useRecorder'
 import useCursor from 'src/hooks/useCursor'
+import { BsFillPlayFill } from 'react-icons/bs'
 import { Toaster, toast } from '@redwoodjs/web/toast'
 import { useState, useRef, useEffect } from 'react'
 const mapLanguage = {
@@ -187,28 +188,33 @@ const Learning = () => {
           }`}
         >
           <div className="ml-10 mt-2">{file.name} </div>
-          <div className="ml-auto pr-5">
+          <div className="ml-auto pr-1 flex justify-center items-center">
             <button
-              className="w-20 h-8 py-1 px-2 mx-4 bg-yellow-400"
+              className="font-bold text-xs py-1 px-2 mx-1 rounded flex bg-green-500 hover:bg-green-400 "
+              onClick={() =>
+                upadteIframe(code['HTML'], code['CSS'], code['JS'])
+              }
+            >
+              <BsFillPlayFill size={'15px'} />
+              RUN
+            </button>
+            <button
+              className={`font-bold text-xs py-1 px-2 mx-1  rounded bg-transparent border border-base ${
+                isIframe ? 'border-transparent bg-skin-base' : ''
+              }`}
               onClick={() => toggleIframe()}
             >
               PREVIEW
             </button>
             <button
-              className="w-20 h-8 py-1 px-2 mx-4 bg-yellow-400"
-              onClick={() =>
-                upadteIframe(code['HTML'], code['CSS'], code['JS'])
-              }
-            >
-              RUN
-            </button>
-            <button
-              className="w-20 h-8 py-1 px-2 mx-4 bg-yellow-400"
+              className={`font-bold text-xs py-1 px-2 mx-1  rounded bg-transparent border border-base ${
+                isConsole ? 'border-transparent bg-skin-base' : ''
+              }`}
               onClick={() => {
                 toggleIsConsole()
               }}
             >
-              console
+              CONSOLE
             </button>
           </div>
         </div>
