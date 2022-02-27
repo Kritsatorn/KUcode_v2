@@ -82,7 +82,6 @@ const Learning = () => {
     }
   }
   const updateSlide = ({ isOpen, PageNumber }) => {
-    console.log('up :', isOpen, PageNumber)
     setSlide({ isOpen: isOpen, PageNumber: PageNumber })
   }
   useEffect(() => {
