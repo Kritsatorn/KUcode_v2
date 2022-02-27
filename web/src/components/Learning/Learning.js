@@ -65,17 +65,38 @@ const Learning = () => {
     eventListCursor,
     isRecordCursor,
   ] = useRecordEvent()
-
+  // Slide
+  // { isOpen , Page }
+  const [slide, setSlide] = useState({ isOpen: false, PageNumber: 0 })
+  const [startReplaySlide, stopReplaySlide] = useReplayEvent()
+  const [
+    startRecordSlide,
+    stopRecordSlide,
+    recordEventSlide,
+    eventListSlide,
+    isRecordSlide,
+  ] = useRecordEvent()
+  const recordSlide = (isOpen, PageNumber) => {
+    if (isRecordSlide === true) {
+      recordEventSlide({ isOpen: isOpen, PageNumber: PageNumber })
+    }
+  }
+  const updateSlide = ({ isOpen, PageNumber }) => {
+    console.log('up :', isOpen, PageNumber)
+    setSlide({ isOpen: isOpen, PageNumber: PageNumber })
+  }
   useEffect(() => {
     if (isRecord === true) {
       startRecordTyping()
       startRecordCursor()
+      startRecordSlide()
       startRecording()
     }
 
     if (isRecord === false) {
       stopRecordTyping()
       stopRecordCursor()
+      stopRecordSlide()
       stopRecording()
     }
   }, [isRecord])
@@ -121,7 +142,11 @@ const Learning = () => {
       <div className="w-56 box-content relative ">
         <SideBar setFileName={setFileName} />
         <div className=" z-40 absolute left-0 bottom-10 w-full h-40 ">
-          <TeacherSlide />
+          <TeacherSlide
+            onChange={recordSlide}
+            isOpenProp={slide.isOpen}
+            pageNumber={slide.PageNumber}
+          />
         </div>
       </div>
 
@@ -179,11 +204,13 @@ const Learning = () => {
           onPlayFn={() => {
             startReplayTyping(0, eventListTyping, setCode)
             startReplayCursor(0, eventListCursor, updateCursor)
+            startReplaySlide(0, eventListSlide, updateSlide)
             setIsEditing(() => false)
           }}
           onPause={() => {
             stopReplayTyping()
             stopReplayCursor()
+            stopReplaySlide()
           }}
           audioRef={audioRef}
           // audioURL={soundUrl}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from 'react'
 import useToggleState from 'src/hooks/useToggleState'
 import useOnClickOutside from 'src/hooks/useOnClickOutside'
@@ -19,10 +20,15 @@ const slidesImg = [
     src: 'https://cdn.pixabay.com/photo/2016/04/25/07/49/man-1351346_1280.png',
   },
 ]
-const TeacherSlide = ({ imgSlide = slidesImg }) => {
+const TeacherSlide = ({
+  imgSlide = slidesImg,
+  isOpenProp = false,
+  pageNumber = 0,
+  onChange,
+}) => {
   const ref = useRef()
-  const [isOpen, setIsOpenTrue, setIsOpenFalse] = useToggleState(false)
-  const [slide, setSlide] = useState(0)
+  const [isOpen, setIsOpenTrue, setIsOpenFalse] = useToggleState(isOpenProp)
+  const [slide, setSlide] = useState(pageNumber)
   useOnClickOutside(ref, () => setIsOpenFalse())
 
   const checkKey = (e) => {
@@ -47,8 +53,19 @@ const TeacherSlide = ({ imgSlide = slidesImg }) => {
     if (isOpen === false) {
       document.removeEventListener('keydown', checkKey)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen])
+  useEffect(() => {
+    if (isOpenProp === true) {
+      setIsOpenTrue()
+    }
+    if (isOpenProp === false) {
+      setIsOpenFalse()
+    }
+    setSlide(pageNumber)
+  }, [isOpenProp, pageNumber])
+  useEffect(() => {
+    onChange(isOpen, slide)
+  }, [isOpen, slide])
   return (
     <div
       className={`w-full h-full bg-violet-600 overflow-hidden cursor-default focus:outline-0 active:outline-0 transition-all duration-300 ${
@@ -64,6 +81,7 @@ const TeacherSlide = ({ imgSlide = slidesImg }) => {
         setIsOpenTrue()
       }}
     >
+      {console.log('props :', isOpenProp, pageNumber, isOpen, slide)}
       <img
         className="object-contain object-center"
         src={imgSlide[slide].src}
