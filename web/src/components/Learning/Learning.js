@@ -103,12 +103,28 @@ const Learning = () => {
     setSlide({ isOpen: isOpen, PageNumber: PageNumber })
   }
 
+  // SideBar
+  // use Filename
+  const [startReplaySideBar, stopReplaySideBar] = useReplayEvent()
+  const [
+    startRecordSideBar,
+    stopRecordSideBar,
+    recordEventSideBar,
+    eventListSideBar,
+    isRecordSideBar,
+  ] = useRecordEvent()
+  useEffect(() => {
+    if (isRecordSideBar === true) {
+      recordEventSideBar(fileName)
+    }
+  }, [fileName])
   // All State Records
   useEffect(() => {
     if (isRecord === true) {
       startRecordTyping()
       startRecordCursor()
       startRecordSlide()
+      startRecordSideBar()
       startRecording()
     }
 
@@ -116,6 +132,7 @@ const Learning = () => {
       stopRecordTyping()
       stopRecordCursor()
       stopRecordSlide()
+      stopRecordSideBar()
       stopRecording()
     }
   }, [isRecord])
@@ -221,12 +238,14 @@ const Learning = () => {
             startReplayTyping(0, eventListTyping, setCode)
             startReplayCursor(0, eventListCursor, updateCursor)
             startReplaySlide(0, eventListSlide, updateSlide)
+            startReplaySideBar(0, eventListSideBar, setFileName)
             setIsEditing(() => false)
             setIsReplay(() => true)
           }}
           onPause={() => {
             stopReplayTyping()
             stopReplayCursor()
+            stopReplaySideBar()
             stopReplaySlide()
             setIsReplay(() => false)
           }}
