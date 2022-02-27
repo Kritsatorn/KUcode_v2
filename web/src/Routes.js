@@ -9,12 +9,15 @@
 
 import { Router, Route, Set } from '@redwoodjs/router'
 import LearningLayout from 'src/layouts/LearningLayout/'
+
 const Routes = () => {
   return (
     <Router>
-      <Set wrap={LearningLayout}></Set>
+      <Set wrap={LearningLayout}>
+        <Route path="/learning" page={LearningPage} name="learning" />
+        <Route path="/learning-record" page={LearningRecordPage} name="learning-record" />
+      </Set>
       <Route path="/home" page={HomePage} name="home" />
-      <Route path="/learning" page={LearningPage} name="learning" />
 
       <Route notfound page={NotFoundPage} />
     </Router>

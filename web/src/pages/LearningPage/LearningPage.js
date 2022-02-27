@@ -1,12 +1,11 @@
 import { MetaTags } from '@redwoodjs/web'
 import Learning from 'src/components/Learning'
-import { CgProfile } from 'react-icons/cg'
-import { FiCodesandbox } from 'react-icons/fi'
 const LearningPage = () => {
   return (
     <>
       <MetaTags title="Learning" description="Learning page" />
-
+      <Learning />
+      {/*
       <div className=" w-full h-screen box-boarder bg-red-300 flex flex-col">
         <div className="headbar w-full h-10 py-1 px-5 text-sm flex justify-start items-center bg-skin-base text-white">
           <span className="icon text-2xl mt-1 mx-3">
@@ -23,7 +22,7 @@ const LearningPage = () => {
         <div className="flex-1">
           <Learning />
         </div>
-      </div>
+      </div> */}
     </>
   )
 }
