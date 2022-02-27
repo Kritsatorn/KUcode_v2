@@ -7,7 +7,7 @@ const Cursor = ({
 }) => {
   return (
     <div
-      className="cursor z-50 absolute text-primary-blue -rotate-60 text-sm transition-all duration-75 ease-linear"
+      className="cursor z-50 absolute text-primary-blue -rotate-60 text-sm"
       style={{
         top: `calc(${position.y}px + ${offsetY})`,
         left: `${position.x}px`,
