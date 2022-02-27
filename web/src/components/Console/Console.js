@@ -11,7 +11,6 @@ const Console = ({
       className={`z-10 w-full h-1/4 absolute left-0 bottom-0 pl-4 border-t border-color-border  ease-in-out duration-300 +
         ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
     >
-      {console.log(isOpen)}
       <div
         className={
           isEditing
