@@ -18,7 +18,9 @@ const useCursor = () => {
     document.removeEventListener('mouseleave', onMouseLeave)
   }
   const onMouseMove = (event) => {
+    // delay to see cursor move
     setTimeout(setPosition({ x: event.clientX, y: event.clientY }), 10000)
+    // setPosition({ x: event.clientX, y: event.clientY })
   }
   const onMouseEnter = () => {
     setHidden(() => false)

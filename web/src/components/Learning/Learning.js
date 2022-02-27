@@ -31,7 +31,6 @@ const Learning = () => {
   const [isConsole, toggleIsConsole] = useToggle(false)
   const [isIframe, toggleIframe] = useToggle(false)
 
-  const [position, hidden, updateCursor] = useCursor()
   const [code, setCode] = useState({
     JS: `
     document.getElementById("myBtn").addEventListener("click", fuck);
@@ -57,6 +56,8 @@ const Learning = () => {
     isRecordTyping,
   ] = useRecordEvent()
   // Cursor
+  // { position : { x , y }, hidden }
+  const [position, hidden, updateCursor] = useCursor()
   const [startReplayCursor, stopReplayCursor] = useReplayEvent()
   const [
     startRecordCursor,
@@ -65,6 +66,11 @@ const Learning = () => {
     eventListCursor,
     isRecordCursor,
   ] = useRecordEvent()
+  useEffect(() => {
+    if (isRecordCursor === true) {
+      recordEventCursor({ ...position, hidden })
+    }
+  }, [position, hidden])
   // Slide
   // { isOpen , Page }
   const [slide, setSlide] = useState({ isOpen: false, PageNumber: 0 })
@@ -99,13 +105,6 @@ const Learning = () => {
       stopRecording()
     }
   }, [isRecord])
-
-  useEffect(() => {
-    // console.log({ ...position, hidden })
-    if (isRecordCursor === true) {
-      recordEventCursor({ ...position, hidden })
-    }
-  }, [position, hidden])
 
   useEffect(() => {
     if (isEditing == true) {
