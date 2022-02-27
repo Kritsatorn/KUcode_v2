@@ -18,17 +18,29 @@ const SideBar = ({
       language: 'html',
     },
   ],
+  fileName,
   setFileName,
+  isEditing = false,
 }) => {
   return (
-    <div className="sidebar h-full w-full py-4 bg-skin-side text-skin-base ">
+    <div
+      className={`sidebar h-full w-full py-4 text-skin-base ${
+        isEditing ? 'bg-skin-sideEditing' : 'bg-skin-side '
+      }`}
+    >
       <div className="explorer px-2 ml-1 text-sm">EXPLORER</div>
-      <div className="listfile px-2 mt-2 text-xs ">
+      <div className="listfile mt-2 text-xs ">
         {Files?.map((file, index) => (
           <div
             key={index}
             tabIndex={index}
-            className="flex cursor-pointer my-2"
+            className={`flex cursor-pointer my-2 py-1 ${
+              fileName === file.name
+                ? isEditing
+                  ? 'bg-skin-editing'
+                  : 'bg-skin-playing'
+                : ''
+            }`}
             onClick={() => setFileName(file.name)}
             onKeyDown={() => {}}
             role="button"

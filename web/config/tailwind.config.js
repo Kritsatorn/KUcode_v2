@@ -21,6 +21,7 @@ module.exports = {
           headIframe: 'var(--color-bg-head-iframe)',
           editing: 'var(--color-bg-editor-editing)',
           playing: 'var(--color-bg-editor-playing)',
+          sideEditing: 'var(--color-bg-sidebar-editing)',
         },
       },
       height: {

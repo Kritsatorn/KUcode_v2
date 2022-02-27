@@ -31,6 +31,7 @@
         --color-text-console-normal: #D4D4D4;
         --color-border: #2A2E2F;
         --color-primary-blue: #3b82f6;
+        --color-bg-sidebar-editing: #272723;
         font-family: 'Karla', sans-serif;
     }
 }

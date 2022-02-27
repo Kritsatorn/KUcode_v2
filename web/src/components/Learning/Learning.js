@@ -27,6 +27,7 @@ const Learning = () => {
   const [iframeCode, upadteIframe] = useIframe()
 
   // On/Off state
+  const [isReplay, setIsReplay] = useState(false)
   const [isRecord, toggleIsRecord] = useToggle(false)
   const [isEditing, setIsEditing] = useState(false)
   const [isConsole, toggleIsConsole] = useToggle(false)
@@ -132,7 +133,6 @@ const Learning = () => {
     window.addEventListener('message', (e) => {
       const data = e.data
       if (data.type === 'log') {
-        console.log('received from child', data.args)
         setConsoleList((prev) => [...prev, data.args[0]])
       }
     })
@@ -144,9 +144,15 @@ const Learning = () => {
         toastOptions={{ success: { duration: 3000 } }}
       />
       <DnDIframe compiledCode={iframeCode} isOpen={isIframe} />
-      <Cursor position={position} hidden={hidden} offsetY={'-2.5rem'} />
+      {isReplay && (
+        <Cursor position={position} hidden={hidden} offsetY={'-2.5rem'} />
+      )}
       <div className="w-56 box-content relative ">
-        <SideBar setFileName={setFileName} />
+        <SideBar
+          fileName={fileName}
+          setFileName={setFileName}
+          isEditing={isEditing}
+        />
         <div className=" z-40 absolute left-0 bottom-10 w-full h-40 ">
           <TeacherSlide
             onChange={recordSlide}
@@ -216,11 +222,13 @@ const Learning = () => {
             startReplayCursor(0, eventListCursor, updateCursor)
             startReplaySlide(0, eventListSlide, updateSlide)
             setIsEditing(() => false)
+            setIsReplay(() => true)
           }}
           onPause={() => {
             stopReplayTyping()
             stopReplayCursor()
             stopReplaySlide()
+            setIsReplay(() => false)
           }}
           audioRef={audioRef}
           // audioURL={soundUrl}
