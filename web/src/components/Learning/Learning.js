@@ -158,7 +158,11 @@ const Learning = () => {
 
       <div className=" flex-1 bg-skin-playing box-border overflow-hidden relative">
         {/* Editer headBar */}
-        <div className=" w-full h-12 bg-skin-editerDark text-white flex">
+        <div
+          className={`w-full h-12 text-white flex ${
+            isEditing ? 'bg-skin-editing' : ' bg-skin-playing'
+          }`}
+        >
           <div className="ml-10 mt-2">{file.name} </div>
           <div className="ml-auto pr-5">
             <button
