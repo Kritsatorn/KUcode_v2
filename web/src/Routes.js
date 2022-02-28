@@ -8,10 +8,17 @@
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
 import { Router, Route, Set } from '@redwoodjs/router'
+import ImagesLayout from 'src/layouts/ImagesLayout'
 import LearningLayout from 'src/layouts/LearningLayout/'
 const Routes = () => {
   return (
     <Router>
+      <Set wrap={ImagesLayout}>
+        <Route path="/images/new" page={ImageNewImagePage} name="newImage" />
+        <Route path="/images/{id:Int}/edit" page={ImageEditImagePage} name="editImage" />
+        <Route path="/images/{id:Int}" page={ImageImagePage} name="image" />
+        <Route path="/images" page={ImageImagesPage} name="images" />
+      </Set>
       <Set wrap={LearningLayout}>
         <Route path="/learning/{id:Int}" page={LearningPage} name="learning" />
         <Route path="/learning-record" page={LearningRecordPage} name="learningRecord" />
