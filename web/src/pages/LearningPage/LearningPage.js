@@ -1,29 +1,31 @@
 import { MetaTags } from '@redwoodjs/web'
 import Learning from 'src/components/Learning'
-import { CgProfile } from 'react-icons/cg'
-import { FiCodesandbox } from 'react-icons/fi'
-const LearningPage = () => {
+import { useQuery } from '@redwoodjs/web'
+import { useEffect } from 'react'
+import LearningCell from 'src/components/LearningCell'
+const QUERY_LEARNING = gql`
+  query FindLearningQuery($input: Int!) {
+    learning(id: $input) {
+      id
+      name
+      typingList {
+        id
+      }
+    }
+  }
+`
+const LearningPage = ({ id }) => {
+  const { loading, error, data } = useQuery(QUERY_LEARNING, {
+    variables: { input: id },
+  })
+  useEffect(() => {
+    console.log('q : ', data)
+    // console.log('query', queryLearning({ variables: { id: id } }))
+  }, [data])
   return (
     <>
       <MetaTags title="Learning" description="Learning page" />
-
-      <div className=" w-full h-screen box-boarder bg-red-300 flex flex-col">
-        <div className="headbar w-full h-10 py-1 px-5 text-sm flex justify-start items-center bg-skin-base text-white">
-          <span className="icon text-2xl mt-1 mx-3">
-            <FiCodesandbox />
-          </span>
-
-          <span>KU code</span>
-          <span className="cutoff-path mx-3"> / </span>
-          <span>The Frontend Developer Career Path</span>
-          <span className="profile ml-auto text-2xl">
-            <CgProfile />
-          </span>
-        </div>
-        <div className="flex-1">
-          <Learning />
-        </div>
-      </div>
+      <Learning />
     </>
   )
 }

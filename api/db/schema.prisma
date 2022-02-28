@@ -12,7 +12,35 @@ generator client {
 // to create migrations for them and apply to your dev DB.
 // TODO: Please remove the following example:
 model UserExample {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+}
+
+model Typing {
+  id   Int    @id @default(autoincrement())
+  css  String
+  html String
+  js   String
+
+  TypingScript TypingScript[]
+}
+
+model TypingScript {
+  id         Int       @id @default(autoincrement())
+  order      Int
+  timeDiff   String
+  typing     Typing    @relation(fields: [typingId], references: [id])
+  learning   Learning? @relation(fields: [learningId], references: [id])
+  learningId Int?
+  typingId   Int
+}
+
+model Learning {
+  id         Int            @id @default(autoincrement())
+  name       String?
+  typingList TypingScript[]
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @default(now())
 }
