@@ -4,27 +4,27 @@ import useToggleState from 'src/hooks/useToggleState'
 import useOnClickOutside from 'src/hooks/useOnClickOutside'
 const slidesImg = [
   {
-    name: 'slide 1',
-    src: 'https://cdn.pixabay.com/photo/2016/02/28/12/55/boy-1226964_1280.jpg',
+    title: 'slide 1',
+    url: 'https://cdn.pixabay.com/photo/2016/02/28/12/55/boy-1226964_1280.jpg',
   },
   {
-    name: 'slide 2',
-    src: 'https://cdn.pixabay.com/photo/2020/05/08/16/06/dog-5146351_1280.jpg',
+    title: 'slide 2',
+    url: 'https://cdn.pixabay.com/photo/2020/05/08/16/06/dog-5146351_1280.jpg',
   },
   {
-    name: 'slide 3',
-    src: 'https://cdn.pixabay.com/photo/2016/04/25/07/15/man-1351317_1280.png',
+    title: 'slide 3',
+    url: 'https://cdn.pixabay.com/photo/2016/04/25/07/15/man-1351317_1280.png',
   },
   {
-    name: 'slide 4',
-    src: 'https://cdn.pixabay.com/photo/2016/04/25/07/49/man-1351346_1280.png',
+    title: 'slide 4',
+    url: 'https://cdn.pixabay.com/photo/2016/04/25/07/49/man-1351346_1280.png',
   },
 ]
 const TeacherSlide = ({
   imgSlide = slidesImg,
   isOpenProp = false,
   pageNumber = 0,
-  onChange,
+  onChange = () => {},
 }) => {
   const ref = useRef()
   const [isOpen, setIsOpenTrue, setIsOpenFalse] = useToggleState(isOpenProp)
@@ -83,8 +83,8 @@ const TeacherSlide = ({
     >
       <img
         className="object-contain object-center"
-        src={imgSlide[slide].src}
-        alt={imgSlide[slide].name}
+        src={imgSlide[slide].url}
+        alt={imgSlide[slide].title}
       />
     </div>
   )

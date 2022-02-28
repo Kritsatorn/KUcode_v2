@@ -4,8 +4,7 @@ const LearningRecordPage = ({ imageIDList }) => {
   return (
     <>
       <MetaTags title="LearningRecord" description="LearningRecord page" />
-      {console.log('props from ashb :', imageIDList)}
-      <LearningRecord />
+      <LearningRecord imageIDList={imageIDList} />
     </>
   )
 }

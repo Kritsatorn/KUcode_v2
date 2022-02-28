@@ -6,6 +6,7 @@ import SideBar from 'src/components/SideBar'
 import Console from 'src/components/Console'
 import Cursor from 'src/components/Cursor'
 import TeacherSlide from 'src/components/TeacherSlide'
+import TeacherSlideCell from 'src/components/TeacherSlideCell'
 import files from 'src/utils/files'
 import useIframe from 'src/hooks/useIframe'
 import useToggle from 'src/hooks/useToggle'
@@ -23,7 +24,7 @@ const mapLanguage = {
   html: 'HTML',
 }
 
-const LearningRecord = () => {
+const LearningRecord = ({ imageIDList }) => {
   const [fileName, setFileName] = useState(Object.keys(files)[0])
   const file = files[fileName]
   const [iframeCode, upadteIframe] = useIframe()
@@ -179,7 +180,8 @@ const LearningRecord = () => {
           isEditing={isEditing}
         />
         <div className=" z-40 absolute left-0 bottom-10 w-full h-40 ">
-          <TeacherSlide
+          <TeacherSlideCell
+            imageIDList={imageIDList}
             onChange={recordSlide}
             isOpenProp={slide.isOpen}
             pageNumber={slide.PageNumber}
