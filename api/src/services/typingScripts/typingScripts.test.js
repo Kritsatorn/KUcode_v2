@@ -25,28 +25,32 @@ describe('typingScripts', () => {
     expect(result).toEqual(scenario.typingScript.one)
   })
 
-  scenario('creates a typingScript', async (scenario) => {
+  scenario('creates a typingScript', async () => {
     const result = await createTypingScript({
       input: {
-        order: 8357775,
+        order: 7722212,
         timeDiff: 'String',
-        typingId: scenario.typingScript.two.typingId,
+        css: 'String',
+        html: 'String',
+        js: 'String',
       },
     })
 
-    expect(result.order).toEqual(8357775)
+    expect(result.order).toEqual(7722212)
     expect(result.timeDiff).toEqual('String')
-    expect(result.typingId).toEqual(scenario.typingScript.two.typingId)
+    expect(result.css).toEqual('String')
+    expect(result.html).toEqual('String')
+    expect(result.js).toEqual('String')
   })
 
   scenario('updates a typingScript', async (scenario) => {
     const original = await typingScript({ id: scenario.typingScript.one.id })
     const result = await updateTypingScript({
       id: original.id,
-      input: { order: 7251904 },
+      input: { order: 1880846 },
     })
 
-    expect(result.order).toEqual(7251904)
+    expect(result.order).toEqual(1880846)
   })
 
   scenario('deletes a typingScript', async (scenario) => {

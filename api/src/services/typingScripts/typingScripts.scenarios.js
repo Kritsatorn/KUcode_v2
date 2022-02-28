@@ -2,17 +2,21 @@ export const standard = defineScenario({
   typingScript: {
     one: {
       data: {
-        order: 7896701,
+        order: 1754494,
         timeDiff: 'String',
-        typing: { create: { css: 'String', html: 'String', js: 'String' } },
+        css: 'String',
+        html: 'String',
+        js: 'String',
       },
     },
 
     two: {
       data: {
-        order: 8089572,
+        order: 9275682,
         timeDiff: 'String',
-        typing: { create: { css: 'String', html: 'String', js: 'String' } },
+        css: 'String',
+        html: 'String',
+        js: 'String',
       },
     },
   },
