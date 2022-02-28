@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import humanize from 'humanize-string'
 
 import { useMutation } from '@redwoodjs/web'
