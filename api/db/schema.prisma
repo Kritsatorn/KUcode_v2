@@ -11,42 +11,69 @@ generator client {
 // Define your own datamodels here and run `yarn redwood prisma migrate dev`
 // to create migrations for them and apply to your dev DB.
 // TODO: Please remove the following example:
-model UserExample {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
+model User {
+  id                  Int        @id @default(autoincrement())
+  name                String?
+  email               String     @unique
+  hashedPassword      String
+  salt                String
+  resetToken          String?
+  resetTokenExpiresAt DateTime?
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @default(now())
+  learnings           Learning[]
 }
 
-model Typing {
-  id   Int    @id @default(autoincrement())
-  css  String
-  html String
-  js   String
+model Learning {
+  id          Int             @id @default(autoincrement())
+  name        String?
+  audioURL    String
+  imageList   Image[]
+  typingList  TypingScript[]
+  cursorList  CursorScript[]
+  sidebarList SidebarScript[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @default(now())
+  User        User?           @relation(fields: [userId], references: [id])
+  userId      Int?
+}
 
-  TypingScript TypingScript[]
+model SidebarScript {
+  id         Int       @id @default(autoincrement())
+  order      Int
+  timeDiff   String
+  isOpen     Boolean
+  PageNumber Int
+  Learning   Learning? @relation(fields: [learningId], references: [id])
+  learningId Int?
+}
+
+model CursorScript {
+  id         Int       @id @default(autoincrement())
+  order      Int
+  timeDiff   String
+  positionX  Int
+  positionY  Int
+  hidden     Boolean
+  Learning   Learning? @relation(fields: [learningId], references: [id])
+  learningId Int?
 }
 
 model TypingScript {
   id         Int       @id @default(autoincrement())
   order      Int
   timeDiff   String
-  typing     Typing    @relation(fields: [typingId], references: [id])
+  css        String
+  html       String
+  js         String
   learning   Learning? @relation(fields: [learningId], references: [id])
   learningId Int?
-  typingId   Int
-}
-
-model Learning {
-  id         Int            @id @default(autoincrement())
-  name       String?
-  typingList TypingScript[]
-  createdAt  DateTime       @default(now())
-  updatedAt  DateTime       @default(now())
 }
 
 model Image {
-  id    Int    @id @default(autoincrement())
-  title String
-  url   String
+  id         Int       @id @default(autoincrement())
+  title      String
+  url        String
+  Learning   Learning? @relation(fields: [learningId], references: [id])
+  learningId Int?
 }
