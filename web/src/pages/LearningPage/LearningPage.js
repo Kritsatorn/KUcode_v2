@@ -25,7 +25,6 @@ const LearningPage = ({ id }) => {
   return (
     <>
       <MetaTags title="Learning" description="Learning page" />
-      <div>{id}</div>
       <Learning />
     </>
   )
