@@ -2,6 +2,7 @@ export const QUERY = gql`
   query FindLearningQuery($id: Int!) {
     learning: learning(id: $id) {
       id
+      name
     }
   }
 `
