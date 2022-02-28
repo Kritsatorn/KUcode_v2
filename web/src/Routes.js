@@ -13,6 +13,7 @@ import LearningLayout from 'src/layouts/LearningLayout/'
 const Routes = () => {
   return (
     <Router>
+      <Route path="/dashboard" page={DashboardPage} name="dashboard" />
       <Set wrap={ImagesLayout}>
         <Route path="/images/new" page={ImageNewImagePage} name="newImage" />
         <Route path="/images/{id:Int}/edit" page={ImageEditImagePage} name="editImage" />
