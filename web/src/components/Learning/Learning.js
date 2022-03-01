@@ -42,7 +42,7 @@ const Learning = () => {
     document.getElementById("myBtn").addEventListener("click", fuck);
 
     function fuck() {
-      console.log("fuck")
+      console.log("Hello World!")
     }
     `,
     CSS: '',
