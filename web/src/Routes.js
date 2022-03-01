@@ -22,6 +22,7 @@ const Routes = () => {
       <Set wrap={LearningLayout}>
         <Route path="/learning/{id:Int}" page={LearningPage} name="learning" />
         <Route path="/learning-record" page={LearningRecordPage} name="learningRecord" />
+        <Route path="/dashboard" page={DashboardPage} name="dashboard" />
       </Set>
       <Route path="/home" page={HomePage} name="home" />
       <Route notfound page={NotFoundPage} />

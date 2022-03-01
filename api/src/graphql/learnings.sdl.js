@@ -2,9 +2,15 @@ export const schema = gql`
   type Learning {
     id: Int!
     name: String
+    audioURL: String!
+    imageList: [Image]!
     typingList: [TypingScript]!
+    cursorList: [CursorScript]!
+    sidebarList: [SidebarScript]!
     createdAt: DateTime!
     updatedAt: DateTime!
+    User: User
+    userId: Int
   }
 
   type Query {
@@ -14,10 +20,14 @@ export const schema = gql`
 
   input CreateLearningInput {
     name: String
+    audioURL: String!
+    userId: Int
   }
 
   input UpdateLearningInput {
     name: String
+    audioURL: String
+    userId: Int
   }
 
   type Mutation {

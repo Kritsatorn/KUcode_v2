@@ -28,8 +28,3 @@ export const deleteLearning = ({ id }) => {
     where: { id },
   })
 }
-
-export const Learning = {
-  typingList: (_obj, { root }) =>
-    db.learning.findUnique({ where: { id: root.id } }).typingList(),
-}

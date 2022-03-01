@@ -3,10 +3,11 @@ export const schema = gql`
     id: Int!
     order: Int!
     timeDiff: String!
-    typing: Typing!
+    css: String!
+    html: String!
+    js: String!
     learning: Learning
     learningId: Int
-    typingId: Int!
   }
 
   type Query {
@@ -17,15 +18,19 @@ export const schema = gql`
   input CreateTypingScriptInput {
     order: Int!
     timeDiff: String!
+    css: String!
+    html: String!
+    js: String!
     learningId: Int
-    typingId: Int!
   }
 
   input UpdateTypingScriptInput {
     order: Int
     timeDiff: String
+    css: String
+    html: String
+    js: String
     learningId: Int
-    typingId: Int
   }
 
   type Mutation {

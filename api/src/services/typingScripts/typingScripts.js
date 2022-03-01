@@ -28,10 +28,3 @@ export const deleteTypingScript = ({ id }) => {
     where: { id },
   })
 }
-
-export const TypingScript = {
-  typing: (_obj, { root }) =>
-    db.typingScript.findUnique({ where: { id: root.id } }).typing(),
-  learning: (_obj, { root }) =>
-    db.typingScript.findUnique({ where: { id: root.id } }).learning(),
-}
