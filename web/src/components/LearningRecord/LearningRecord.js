@@ -17,6 +17,7 @@ import useCursor from 'src/hooks/useCursor'
 import { BsFillPlayFill } from 'react-icons/bs'
 import { Toaster, toast } from '@redwoodjs/web/toast'
 import { useState, useRef, useEffect } from 'react'
+import useUploadLearning from 'src/hooks/useUploadLearning'
 const mapLanguage = {
   javascript: 'JS',
   css: 'CSS',
@@ -159,6 +160,20 @@ const LearningRecord = ({ imageIDList }) => {
     })
   }, [])
 
+  // handle upload
+  const [upload] = useUploadLearning()
+  const handleUpload = () => {
+    const payload = {
+      name: 'name 1',
+      audioURL: audioURL,
+      imageList: JSON.parse(`[${imageIDList}]`),
+      cursorList: eventListCursor,
+      slideList: eventListSlide,
+      sidebarList: eventListSideBar,
+      typingList: eventListTyping,
+    }
+    upload(payload)
+  }
   return (
     <div className="w-full h-full overflow-hidden flex relative">
       <Toaster
@@ -181,7 +196,7 @@ const LearningRecord = ({ imageIDList }) => {
         />
         <div className=" z-40 absolute left-0 bottom-10 w-full h-40 ">
           <TeacherSlideCell
-            imageIDList={imageIDList}
+            imageIDList={JSON.parse(`[${imageIDList}]`)}
             onChange={recordSlide}
             isOpenProp={slide.isOpen}
             pageNumber={slide.PageNumber}
@@ -247,6 +262,13 @@ const LearningRecord = ({ imageIDList }) => {
           onClick={toggleIsRecord}
         >
           {isRecord ? 'STOP' : 'RECORD'}
+        </button>
+        <button
+          className=" box-border w-20 h-8 py-1 px-2 ml-2 bg-yellow-300 text-sm "
+          onClick={handleUpload}
+          disabled={audioURL === ''}
+        >
+          UPLOAD
         </button>
         <AudioPlayer
           onPlayFn={() => {

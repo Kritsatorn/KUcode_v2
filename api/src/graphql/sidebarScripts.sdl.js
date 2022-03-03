@@ -1,42 +1,39 @@
 export const schema = gql`
-  type SidebarScript {
+  type SideBarScript {
     id: Int!
     order: Int!
     timeDiff: String!
-    isOpen: Boolean!
-    PageNumber: Int!
+    value: String!
     Learning: Learning
     learningId: Int
   }
 
   type Query {
-    sidebarScripts: [SidebarScript!]! @requireAuth
-    sidebarScript(id: Int!): SidebarScript @requireAuth
+    sideBarScripts: [SideBarScript!]! @requireAuth
+    sideBarScript(id: Int!): SideBarScript @requireAuth
   }
 
-  input CreateSidebarScriptInput {
+  input CreateSideBarScriptInput {
     order: Int!
     timeDiff: String!
-    isOpen: Boolean!
-    PageNumber: Int!
+    value: String!
     learningId: Int
   }
 
-  input UpdateSidebarScriptInput {
+  input UpdateSideBarScriptInput {
     order: Int
     timeDiff: String
-    isOpen: Boolean
-    PageNumber: Int
+    value: String
     learningId: Int
   }
 
   type Mutation {
-    createSidebarScript(input: CreateSidebarScriptInput!): SidebarScript!
+    createSideBarScript(input: CreateSideBarScriptInput!): SideBarScript!
       @requireAuth
-    updateSidebarScript(
+    updateSideBarScript(
       id: Int!
-      input: UpdateSidebarScriptInput!
-    ): SidebarScript! @requireAuth
-    deleteSidebarScript(id: Int!): SidebarScript! @requireAuth
+      input: UpdateSideBarScriptInput!
+    ): SideBarScript! @requireAuth
+    deleteSideBarScript(id: Int!): SideBarScript! @requireAuth
   }
 `

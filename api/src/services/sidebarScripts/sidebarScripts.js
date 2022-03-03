@@ -1,30 +1,35 @@
 import { db } from 'src/lib/db'
 
-export const sidebarScripts = () => {
-  return db.sidebarScript.findMany()
+export const sideBarScripts = () => {
+  return db.sideBarScript.findMany()
 }
 
-export const sidebarScript = ({ id }) => {
-  return db.sidebarScript.findUnique({
+export const sideBarScript = ({ id }) => {
+  return db.sideBarScript.findUnique({
     where: { id },
   })
 }
 
-export const createSidebarScript = ({ input }) => {
-  return db.sidebarScript.create({
+export const createSideBarScript = ({ input }) => {
+  return db.sideBarScript.create({
     data: input,
   })
 }
 
-export const updateSidebarScript = ({ id, input }) => {
-  return db.sidebarScript.update({
+export const updateSideBarScript = ({ id, input }) => {
+  return db.sideBarScript.update({
     data: input,
     where: { id },
   })
 }
 
-export const deleteSidebarScript = ({ id }) => {
-  return db.sidebarScript.delete({
+export const deleteSideBarScript = ({ id }) => {
+  return db.sideBarScript.delete({
     where: { id },
   })
+}
+
+export const SideBarScript = {
+  Learning: (_obj, { root }) =>
+    db.sideBarScript.findUnique({ where: { id: root.id } }).Learning(),
 }

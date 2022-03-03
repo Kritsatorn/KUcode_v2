@@ -1,10 +1,10 @@
 import {
-  sidebarScripts,
-  sidebarScript,
-  createSidebarScript,
-  updateSidebarScript,
-  deleteSidebarScript,
-} from './sidebarScripts'
+  sideBarScripts,
+  sideBarScript,
+  createSideBarScript,
+  updateSideBarScript,
+  deleteSideBarScript,
+} from './sideBarScripts'
 
 // Generated boilerplate tests do not account for all circumstances
 // and can fail without adjustments, e.g. Float and DateTime types.
@@ -12,51 +12,45 @@ import {
 //       https://redwoodjs.com/docs/testing#testing-services
 // https://redwoodjs.com/docs/testing#jest-expect-type-considerations
 
-describe('sidebarScripts', () => {
-  scenario('returns all sidebarScripts', async (scenario) => {
-    const result = await sidebarScripts()
+describe('sideBarScripts', () => {
+  scenario('returns all sideBarScripts', async (scenario) => {
+    const result = await sideBarScripts()
 
-    expect(result.length).toEqual(Object.keys(scenario.sidebarScript).length)
+    expect(result.length).toEqual(Object.keys(scenario.sideBarScript).length)
   })
 
-  scenario('returns a single sidebarScript', async (scenario) => {
-    const result = await sidebarScript({ id: scenario.sidebarScript.one.id })
+  scenario('returns a single sideBarScript', async (scenario) => {
+    const result = await sideBarScript({ id: scenario.sideBarScript.one.id })
 
-    expect(result).toEqual(scenario.sidebarScript.one)
+    expect(result).toEqual(scenario.sideBarScript.one)
   })
 
-  scenario('creates a sidebarScript', async () => {
-    const result = await createSidebarScript({
-      input: {
-        order: 222897,
-        timeDiff: 'String',
-        isOpen: true,
-        PageNumber: 7540433,
-      },
+  scenario('creates a sideBarScript', async () => {
+    const result = await createSideBarScript({
+      input: { order: 4495576, timeDiff: 'String', value: 'String' },
     })
 
-    expect(result.order).toEqual(222897)
+    expect(result.order).toEqual(4495576)
     expect(result.timeDiff).toEqual('String')
-    expect(result.isOpen).toEqual(true)
-    expect(result.PageNumber).toEqual(7540433)
+    expect(result.value).toEqual('String')
   })
 
-  scenario('updates a sidebarScript', async (scenario) => {
-    const original = await sidebarScript({ id: scenario.sidebarScript.one.id })
-    const result = await updateSidebarScript({
+  scenario('updates a sideBarScript', async (scenario) => {
+    const original = await sideBarScript({ id: scenario.sideBarScript.one.id })
+    const result = await updateSideBarScript({
       id: original.id,
-      input: { order: 705095 },
+      input: { order: 3458087 },
     })
 
-    expect(result.order).toEqual(705095)
+    expect(result.order).toEqual(3458087)
   })
 
-  scenario('deletes a sidebarScript', async (scenario) => {
-    const original = await deleteSidebarScript({
-      id: scenario.sidebarScript.one.id,
+  scenario('deletes a sideBarScript', async (scenario) => {
+    const original = await deleteSideBarScript({
+      id: scenario.sideBarScript.one.id,
     })
 
-    const result = await sidebarScript({ id: original.id })
+    const result = await sideBarScript({ id: original.id })
 
     expect(result).toEqual(null)
   })
