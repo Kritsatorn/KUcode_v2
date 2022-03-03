@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-
+import axios from 'axios'
 const useRecorder = () => {
   const [audioURL, setAudioURL] = useState('')
   const [isRecording, setIsRecording] = useState(false)
@@ -23,7 +23,18 @@ const useRecorder = () => {
 
     // Obtain the audio when ready.
     const handleData = (e) => {
-      setAudioURL(URL.createObjectURL(e.data))
+      // instead of BLOB url , we upload now // change logic later
+      // setAudioURL(URL.createObjectURL(e.data))
+      const url = `https://www.filestackapi.com/api/store/S3?key=${process.env.REDWOOD_ENV_FILESTACK_API_KEY}`
+      const config = {
+        headers: {
+          'content-type': 'audio/webm;codecs=opus',
+        },
+      }
+      axios.post(url, e.data, config).then((response) => {
+        console.log('audio', response.data)
+        setAudioURL(response.data.url)
+      })
     }
 
     recorder.addEventListener('dataavailable', handleData)
