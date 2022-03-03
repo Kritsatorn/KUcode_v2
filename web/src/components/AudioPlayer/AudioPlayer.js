@@ -64,7 +64,6 @@ const AudioPlayer = ({ onPlayFn, onPause, audioRef, audioURL }) => {
     >
       <audio
         src={audioURL}
-        // src="/sounds/soudDemo.webm"
         ref={audioRef}
         onPlay={onPlayFn}
         onPause={onPause}
