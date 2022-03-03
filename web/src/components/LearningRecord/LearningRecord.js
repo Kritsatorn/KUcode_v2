@@ -5,7 +5,6 @@ import CodeEditer from 'src/components/CodeEditer'
 import SideBar from 'src/components/SideBar'
 import Console from 'src/components/Console'
 import Cursor from 'src/components/Cursor'
-import TeacherSlide from 'src/components/TeacherSlide'
 import TeacherSlideCell from 'src/components/TeacherSlideCell'
 import files from 'src/utils/files'
 import useIframe from 'src/hooks/useIframe'
@@ -159,6 +158,7 @@ const LearningRecord = ({ imageIDList }) => {
       }
     })
   }, [])
+
   return (
     <div className="w-full h-full overflow-hidden flex relative">
       <Toaster

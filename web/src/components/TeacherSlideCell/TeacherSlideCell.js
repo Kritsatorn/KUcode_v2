@@ -20,5 +20,5 @@ export const Failure = ({ error }) => (
 export const Success = ({ images, imageIDList = [1, 2], ...rest }) => {
   const result = images.filter(({ id }) => imageIDList.includes(id))
   console.log('KUY :', result)
-  return <TeacherSlide imgSlide={result} />
+  return <TeacherSlide imgSlide={result} {...rest} />
 }
