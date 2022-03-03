@@ -57,7 +57,11 @@ const AudioPlayer = ({ onPlayFn, onPause, audioRef, audioURL }) => {
   }
 
   return (
-    <div className="audioPlayer">
+    <div
+      className={`audioPlayer ${
+        audioURL === '' ? 'pointer-events-none opacity-50' : ''
+      } `}
+    >
       <audio
         src={audioURL}
         // src="/sounds/soudDemo.webm"
