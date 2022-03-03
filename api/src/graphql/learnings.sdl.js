@@ -6,7 +6,8 @@ export const schema = gql`
     imageList: [Image]!
     typingList: [TypingScript]!
     cursorList: [CursorScript]!
-    sidebarList: [SidebarScript]!
+    sideBarList: [SideBarScript]!
+    slideList: [SlideScript]!
     createdAt: DateTime!
     updatedAt: DateTime!
     User: User

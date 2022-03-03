@@ -28,3 +28,8 @@ export const deleteImage = ({ id }) => {
     where: { id },
   })
 }
+
+export const Image = {
+  Learning: (_obj, { root }) =>
+    db.image.findUnique({ where: { id: root.id } }).Learning(),
+}
