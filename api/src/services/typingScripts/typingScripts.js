@@ -1,5 +1,12 @@
 import { db } from 'src/lib/db'
 
+export const typingScriptByLID = ({ learningId }) => {
+  return db.typingScript.findMany({
+    where: { learningId },
+    orderBy: [{ order: 'asc' }],
+  })
+}
+
 export const typingScripts = () => {
   return db.typingScript.findMany()
 }

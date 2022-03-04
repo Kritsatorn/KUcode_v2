@@ -1,5 +1,12 @@
 import { db } from 'src/lib/db'
 
+export const slideScriptByLID = ({ learningId }) => {
+  return db.slideScript.findMany({
+    where: { learningId },
+    orderBy: [{ order: 'asc' }],
+  })
+}
+
 export const slideScripts = () => {
   return db.slideScript.findMany()
 }

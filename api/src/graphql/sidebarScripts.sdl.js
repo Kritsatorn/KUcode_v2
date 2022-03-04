@@ -11,6 +11,7 @@ export const schema = gql`
   type Query {
     sideBarScripts: [SideBarScript!]! @requireAuth
     sideBarScript(id: Int!): SideBarScript @requireAuth
+    sideBarScriptByLID(learningId: Int!): [SideBarScript!]! @requireAuth
   }
 
   input CreateSideBarScriptInput {

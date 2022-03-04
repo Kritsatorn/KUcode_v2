@@ -12,6 +12,7 @@ export const schema = gql`
   type Query {
     slideScripts: [SlideScript!]! @requireAuth
     slideScript(id: Int!): SlideScript @requireAuth
+    slideScriptByLID(learningId: Int!): [SlideScript!]! @requireAuth
   }
 
   input CreateSlideScriptInput {
