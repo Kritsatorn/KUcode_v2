@@ -1,5 +1,9 @@
 import { db } from 'src/lib/db'
 
+export const imageByLID = ({ learningId }) => {
+  return db.image.findMany({ where: { learningId } })
+}
+
 export const images = () => {
   return db.image.findMany()
 }

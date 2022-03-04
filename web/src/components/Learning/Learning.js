@@ -17,13 +17,15 @@ import useCursor from 'src/hooks/useCursor'
 import { BsFillPlayFill } from 'react-icons/bs'
 import { Toaster, toast } from '@redwoodjs/web/toast'
 import { useState, useRef, useEffect } from 'react'
+
+import ImageLIDCell from 'src/components/ImageLIDCell'
 const mapLanguage = {
   javascript: 'JS',
   css: 'CSS',
   html: 'HTML',
 }
 
-const Learning = () => {
+const Learning = ({ id }) => {
   const [fileName, setFileName] = useState(Object.keys(files)[0])
   const file = files[fileName]
   const [iframeCode, upadteIframe] = useIframe()
@@ -158,6 +160,10 @@ const Learning = () => {
       }
     })
   }, [])
+
+  useEffect(() => {
+    console.log('got : ', typeof id)
+  }, [])
   return (
     <div className="w-full h-full overflow-hidden flex relative">
       <Toaster
@@ -179,8 +185,8 @@ const Learning = () => {
           isEditing={isEditing}
         />
         <div className=" z-40 absolute left-0 bottom-10 w-full h-40 ">
-          <TeacherSlide
-            onChange={recordSlide}
+          <ImageLIDCell
+            learningId={id}
             isOpenProp={slide.isOpen}
             pageNumber={slide.PageNumber}
           />
