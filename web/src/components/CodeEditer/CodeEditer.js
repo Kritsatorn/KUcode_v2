@@ -11,6 +11,7 @@ const CodeEditer = ({
   fontSize = 18,
   isEditing,
   handleEditorChange,
+  disable = false,
 }) => {
   const monaco = useMonaco()
   useEffect(() => {
@@ -44,7 +45,11 @@ const CodeEditer = ({
     }
   }, [isEditing, monaco?.editor])
   return (
-    <div className="w-full h-full overflow-hidden">
+    <div
+      className={`w-full h-full overflow-hidden ${
+        disable ? ' pointer-events-none' : ''
+      }`}
+    >
       <Editor
         height="calc(-3rem + 100% )" // By default, it fully fits with its parent
         loading={<div>LOAD</div>}
