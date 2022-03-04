@@ -1,5 +1,12 @@
 import { db } from 'src/lib/db'
 
+export const cursorScriptByLID = ({ learningId }) => {
+  return db.cursorScript.findMany({
+    where: { learningId },
+    orderBy: [{ order: 'asc' }],
+  })
+}
+
 export const cursorScripts = () => {
   return db.cursorScript.findMany()
 }

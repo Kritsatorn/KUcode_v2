@@ -1,145 +1,85 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import AudioPlayer from 'src/components/AudioPlayer'
+
 import DnDIframe from 'src/components/DnDIframe'
 import CodeEditer from 'src/components/CodeEditer'
 import SideBar from 'src/components/SideBar'
 import Console from 'src/components/Console'
 import Cursor from 'src/components/Cursor'
-import TeacherSlide from 'src/components/TeacherSlide'
+
 import files from 'src/utils/files'
 import useIframe from 'src/hooks/useIframe'
 import useToggle from 'src/hooks/useToggle'
 import useToggleState from 'src/hooks/useToggleState'
-import useRecordEvent from 'src/hooks/useRecordEvent'
+
 import useReplayEvent from 'src/hooks/useReplayEvent'
-import useRecorder from 'src/hooks/useRecorder'
-import useCursor from 'src/hooks/useCursor'
+
 import { BsFillPlayFill } from 'react-icons/bs'
 import { Toaster, toast } from '@redwoodjs/web/toast'
 import { useState, useRef, useEffect } from 'react'
+
+import ImageLIDCell from 'src/components/ImageLIDCell'
+
+import AudioPlayerCell from 'src/components/AudioPlayerCell'
 const mapLanguage = {
   javascript: 'JS',
   css: 'CSS',
   html: 'HTML',
 }
 
-const Learning = () => {
+const Learning = ({
+  id,
+  slideScript,
+  cursorScript,
+  typingScript,
+  sideBarScript,
+}) => {
   const [fileName, setFileName] = useState(Object.keys(files)[0])
   const file = files[fileName]
   const [iframeCode, upadteIframe] = useIframe()
 
   // On/Off state
   const [isReplay, setIsReplay] = useState(false)
-  const [isRecord, toggleIsRecord] = useToggle(false)
   const [isEditing, setIsEditing] = useState(false)
-  const [isConsole, toggleIsConsole] = useToggle(false)
+  const [isConsole, toggleIsConsole] = useToggle(true)
   // eslint-disable-next-line no-unused-vars
   const [isIframe, setIframeTrue, setIframeFalse, toggleIframe] =
-    useToggleState(false)
+    useToggleState(true)
 
   const [code, setCode] = useState({
-    JS: `
-    document.getElementById("myBtn").addEventListener("click", fuck);
-
-    function fuck() {
-      console.log("Hello World!")
-    }
-    `,
-    CSS: '',
-    HTML: '<button id="myBtn">Try it</button>',
+    ...typingScript[0].value,
   })
 
   const audioRef = useRef(null)
-  // eslint-disable-next-line no-unused-vars
-  const [audioURL, isRecording, startRecording, stopRecording] = useRecorder()
   // Typing
   // { JS:'' , CSS:'' , HTML:''}
   const [startReplayTyping, stopReplayTyping] = useReplayEvent()
-  const [
-    startRecordTyping,
-    stopRecordTyping,
-    recordEventTyping,
-    eventListTyping,
-    isRecordTyping,
-  ] = useRecordEvent()
   const handleEditorChange = (value) => {
     const updatedValue = {}
     updatedValue[mapLanguage[file.language]] = value
-    if (isRecordTyping) recordEventTyping({ ...code, ...updatedValue })
     setCode((prevCode) => ({ ...prevCode, ...updatedValue }))
     setIsEditing(() => true)
   }
 
   // Cursor
   // { position : { x , y }, hidden }
-  const [position, hidden, updateCursor] = useCursor()
   const [startReplayCursor, stopReplayCursor] = useReplayEvent()
-  const [
-    startRecordCursor,
-    stopRecordCursor,
-    recordEventCursor,
-    eventListCursor,
-    isRecordCursor,
-  ] = useRecordEvent()
-  useEffect(() => {
-    if (isRecordCursor === true) {
-      recordEventCursor({ ...position, hidden })
-    }
-  }, [position, hidden])
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [hidden, setHidden] = useState(false)
+  const updateCursor = ({ x, y, hidden }) => {
+    setPosition({ x: x, y: y })
+    setHidden(hidden)
+  }
 
   // Slide
   // { isOpen , Page }
-  const [slide, setSlide] = useState({ isOpen: false, PageNumber: 0 })
   const [startReplaySlide, stopReplaySlide] = useReplayEvent()
-  const [
-    startRecordSlide,
-    stopRecordSlide,
-    recordEventSlide,
-    eventListSlide,
-    isRecordSlide,
-  ] = useRecordEvent()
-  const recordSlide = (isOpen, PageNumber) => {
-    if (isRecordSlide === true) {
-      recordEventSlide({ isOpen: isOpen, PageNumber: PageNumber })
-    }
-  }
+  const [slide, setSlide] = useState({ isOpen: false, PageNumber: 0 })
   const updateSlide = ({ isOpen, PageNumber }) => {
-    setSlide({ isOpen: isOpen, PageNumber: PageNumber })
+    setSlide(() => ({ isOpen: isOpen, PageNumber: PageNumber }))
   }
 
-  // SideBar
-  // use Filename
+  // Sidebar
   const [startReplaySideBar, stopReplaySideBar] = useReplayEvent()
-  const [
-    startRecordSideBar,
-    stopRecordSideBar,
-    recordEventSideBar,
-    eventListSideBar,
-    isRecordSideBar,
-  ] = useRecordEvent()
-  useEffect(() => {
-    if (isRecordSideBar === true) {
-      recordEventSideBar(fileName)
-    }
-  }, [fileName])
-  // All State Records
-  useEffect(() => {
-    if (isRecord === true) {
-      startRecordTyping()
-      startRecordCursor()
-      startRecordSlide()
-      startRecordSideBar()
-      startRecording()
-    }
-
-    if (isRecord === false) {
-      stopRecordTyping()
-      stopRecordCursor()
-      stopRecordSlide()
-      stopRecordSideBar()
-      stopRecording()
-    }
-  }, [isRecord])
 
   // Toaster Noti
   useEffect(() => {
@@ -158,6 +98,7 @@ const Learning = () => {
       }
     })
   }, [])
+
   return (
     <div className="w-full h-full overflow-hidden flex relative">
       <Toaster
@@ -179,8 +120,8 @@ const Learning = () => {
           isEditing={isEditing}
         />
         <div className=" z-40 absolute left-0 bottom-10 w-full h-40 ">
-          <TeacherSlide
-            onChange={recordSlide}
+          <ImageLIDCell
+            learningId={id}
             isOpenProp={slide.isOpen}
             pageNumber={slide.PageNumber}
           />
@@ -230,6 +171,7 @@ const Learning = () => {
           code={code}
           isEditing={isEditing}
           handleEditorChange={handleEditorChange}
+          disable={isReplay}
         />
         <Console
           isEditing={isEditing}
@@ -240,18 +182,13 @@ const Learning = () => {
       </div>
 
       <div className="z-10 left-0 bottom-0 fixed w-full h-10 flex">
-        <button
-          className=" box-border w-20 h-8 py-1 px-2 ml-2 bg-yellow-300 text-sm "
-          onClick={toggleIsRecord}
-        >
-          {isRecord ? 'STOP' : 'RECORD'}
-        </button>
-        <AudioPlayer
+        <AudioPlayerCell
+          id={id}
           onPlayFn={() => {
-            startReplayTyping(0, eventListTyping, setCode)
-            startReplayCursor(0, eventListCursor, updateCursor)
-            startReplaySlide(0, eventListSlide, updateSlide)
-            startReplaySideBar(0, eventListSideBar, setFileName)
+            startReplayTyping(0, typingScript, setCode)
+            startReplayCursor(0, cursorScript, updateCursor)
+            startReplaySlide(0, slideScript, updateSlide)
+            startReplaySideBar(0, sideBarScript, setFileName)
             setIsEditing(() => false)
             setIsReplay(() => true)
           }}
@@ -263,8 +200,6 @@ const Learning = () => {
             setIsReplay(() => false)
           }}
           audioRef={audioRef}
-          // audioURL={soundUrl}
-          audioURL={audioURL}
         />
       </div>
     </div>

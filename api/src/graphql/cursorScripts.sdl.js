@@ -13,6 +13,7 @@ export const schema = gql`
   type Query {
     cursorScripts: [CursorScript!]! @requireAuth
     cursorScript(id: Int!): CursorScript @requireAuth
+    cursorScriptByLID(learningId: Int!): [CursorScript!]! @requireAuth
   }
 
   input CreateCursorScriptInput {

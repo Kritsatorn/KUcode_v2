@@ -1,5 +1,12 @@
 import { db } from 'src/lib/db'
 
+export const sideBarScriptByLID = ({ learningId }) => {
+  return db.sideBarScript.findMany({
+    where: { learningId },
+    orderBy: [{ order: 'asc' }],
+  })
+}
+
 export const sideBarScripts = () => {
   return db.sideBarScript.findMany()
 }

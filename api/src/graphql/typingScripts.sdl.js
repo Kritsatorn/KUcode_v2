@@ -13,6 +13,7 @@ export const schema = gql`
   type Query {
     typingScripts: [TypingScript!]! @requireAuth
     typingScript(id: Int!): TypingScript @requireAuth
+    typingScriptByLID(learningId: Int!): [TypingScript!]! @requireAuth
   }
 
   input CreateTypingScriptInput {
