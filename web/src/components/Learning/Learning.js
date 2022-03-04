@@ -99,10 +99,6 @@ const Learning = ({
     })
   }, [])
 
-  useEffect(() => {
-    console.log('got : ', typeof id)
-    console.log('got cur : ', { ...cursorScript[0].value })
-  }, [])
   return (
     <div className="w-full h-full overflow-hidden flex relative">
       <Toaster
@@ -175,6 +171,7 @@ const Learning = ({
           code={code}
           isEditing={isEditing}
           handleEditorChange={handleEditorChange}
+          disable={isReplay}
         />
         <Console
           isEditing={isEditing}
@@ -185,12 +182,6 @@ const Learning = ({
       </div>
 
       <div className="z-10 left-0 bottom-0 fixed w-full h-10 flex">
-        {/* <button
-          className=" box-border w-20 h-8 py-1 px-2 ml-2 bg-yellow-300 text-sm "
-          onClick={toggleIsRecord}
-        >
-          {isRecord ? 'STOP' : 'RECORD'}
-        </button> */}
         <AudioPlayerCell
           id={id}
           onPlayFn={() => {
