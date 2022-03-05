@@ -1,6 +1,6 @@
 import { Rnd } from 'react-rnd'
 import { FaCircle } from 'react-icons/fa'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 const style = {
   overflow: 'hidden',
   overflowX: 'hidden',
