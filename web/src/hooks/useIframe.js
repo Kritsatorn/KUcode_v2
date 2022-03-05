@@ -9,12 +9,14 @@ const useIframe = () => {
         <html>
           <body> HAHA ${html}</body>
           <style>${css}</style>
+
           <script>
             const originalLog = console.log;
             console.log = (...args) => {
               parent.window.postMessage({ type: 'log', args: args }, '*')
               originalLog(...args)
             };
+
             ${js}
           </script>
         </html>

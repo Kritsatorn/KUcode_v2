@@ -1,6 +1,6 @@
 import { Rnd } from 'react-rnd'
 import { FaCircle } from 'react-icons/fa'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 const style = {
   overflow: 'hidden',
   overflowX: 'hidden',
@@ -69,7 +69,7 @@ const DnDIframe = ({ compiledCode = initialCode, isOpen, setClose }) => {
           sandbox="allow-scripts"
           frameBorder="0"
           width="100%"
-          height="calc(100% )"
+          height="calc(100%)"
         />
       </Rnd>
     </div>

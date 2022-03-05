@@ -198,11 +198,22 @@ const useUploadLearning = () => {
   }
   useEffect(() => {
     if (LID === null || Payload === null || complete === true) return
-    uploadImages(Payload.imageList, LID)
-    uploadCursor(Payload.cursorList, LID)
-    uploadSlide(Payload.slideList, LID)
-    uploadSidebar(Payload.sidebarList, LID)
-    uploadTyping(Payload.typingList, LID)
+    if (Payload.imageList.length == 0) setFlagIMG(true)
+    if (Payload.imageList.length !== 0) uploadImages(Payload.imageList, LID)
+
+    if (Payload.cursorList.length == 0) setFlagCS(true)
+    if (Payload.cursorList.length !== 0) uploadCursor(Payload.cursorList, LID)
+
+    if (Payload.slideList.length == 0) setFlagSL(true)
+    if (Payload.slideList.length !== 0) uploadSlide(Payload.slideList, LID)
+
+    if (Payload.sidebarList.length == 0) setFlagSB(true)
+    if (Payload.sidebarList.length !== 0)
+      uploadSidebar(Payload.sidebarList, LID)
+
+    if (Payload.typingList.length == 0) setFlagTP(true)
+    if (Payload.typingList.length !== 0) uploadTyping(Payload.typingList, LID)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [LID, complete, Payload])
   const initialPayload = {
