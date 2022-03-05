@@ -122,7 +122,7 @@ const Learning = ({
           setFileName={setFileName}
           isEditing={isEditing}
         />
-        <div className=" z-40 absolute left-0 bottom-10 w-full h-40 ">
+        <div className=" z-40 absolute left-0 bottom-10 w-full h-slide_img">
           <ImageLIDCell
             learningId={id}
             isOpenProp={slide.isOpen}
