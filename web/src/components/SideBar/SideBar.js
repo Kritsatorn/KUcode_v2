@@ -1,7 +1,20 @@
+import { DiJavascript1, DiHtml5, DiCss3 } from 'react-icons/di'
 const iconFile = {
-  javascript: 'JS',
-  css: 'CSS',
-  html: 'HTML',
+  javascript: (
+    <span className=" text-lg">
+      <DiJavascript1 />
+    </span>
+  ),
+  css: (
+    <span className="text-lg text-blue-400">
+      <DiCss3 />
+    </span>
+  ),
+  html: (
+    <span className="text-lg text-orange-400">
+      <DiHtml5 />
+    </span>
+  ),
 }
 const SideBar = ({
   Files = [
@@ -48,7 +61,7 @@ const SideBar = ({
             <div className="icon-file ml-6 pt-1 text-yellow-400">
               {iconFile[file.language]}
             </div>
-            <div className="file ml-2 text-white">{file.name}</div>
+            <div className="file ml-2 pt-1 text-white">{file.name}</div>
           </div>
         ))}
       </div>

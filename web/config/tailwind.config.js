@@ -28,6 +28,7 @@ module.exports = {
       height: {
         page: 'calc(-2.5rem + 100vh)',
         slide: '45vw',
+        slide_img: '140px',
       },
       width: {
         editer: 'calc(-12rem + 100% )',

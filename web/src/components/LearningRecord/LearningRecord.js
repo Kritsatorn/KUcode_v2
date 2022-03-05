@@ -14,17 +14,18 @@ import useRecordEvent from 'src/hooks/useRecordEvent'
 import useReplayEvent from 'src/hooks/useReplayEvent'
 import useRecorder from 'src/hooks/useRecorder'
 import useCursor from 'src/hooks/useCursor'
-import { BsFillPlayFill } from 'react-icons/bs'
+import { BsFillPlayFill, BsFillRecordCircleFill } from 'react-icons/bs'
 import { Toaster, toast } from '@redwoodjs/web/toast'
 import { useState, useRef, useEffect } from 'react'
 import useUploadLearning from 'src/hooks/useUploadLearning'
+import { navigate, routes } from '@redwoodjs/router'
 const mapLanguage = {
   javascript: 'JS',
   css: 'CSS',
   html: 'HTML',
 }
 
-const LearningRecord = ({ imageIDList }) => {
+const LearningRecord = ({ imageIDList, name = 'name of learning 3' }) => {
   const [fileName, setFileName] = useState(Object.keys(files)[0])
   const file = files[fileName]
   const [iframeCode, upadteIframe] = useIframe()
@@ -132,7 +133,6 @@ const LearningRecord = ({ imageIDList }) => {
       startRecordSideBar()
       startRecording()
     }
-
     if (isRecord === false) {
       stopRecordTyping()
       stopRecordCursor()
@@ -161,10 +161,10 @@ const LearningRecord = ({ imageIDList }) => {
   }, [])
 
   // handle upload
-  const [upload] = useUploadLearning()
+  const [upload, complete] = useUploadLearning()
   const handleUpload = () => {
     const payload = {
-      name: 'name 1',
+      name: name,
       audioURL: audioURL,
       imageList: JSON.parse(`[${imageIDList}]`),
       cursorList: eventListCursor,
@@ -174,11 +174,31 @@ const LearningRecord = ({ imageIDList }) => {
     }
     upload(payload)
   }
+  useEffect(() => {
+    if (audioURL !== '') {
+      toast('Start Upload !!!')
+      handleUpload()
+    }
+  }, [audioURL])
+  useEffect(() => {
+    if (complete === true) {
+      toast.success('Successfully Upload !!!')
+      setTimeout(() => {
+        navigate(routes.dashboard())
+      }, 3000)
+    }
+  }, [complete])
   return (
     <div className="w-full h-full overflow-hidden flex relative">
       <Toaster
         position="bottom-center"
-        toastOptions={{ success: { duration: 3000 } }}
+        toastOptions={{
+          className: 'text-xl text-bold',
+          style: {
+            padding: '4px 3px',
+          },
+          success: { duration: 3000 },
+        }}
       />
       <DnDIframe
         compiledCode={iframeCode}
@@ -194,7 +214,7 @@ const LearningRecord = ({ imageIDList }) => {
           setFileName={setFileName}
           isEditing={isEditing}
         />
-        <div className=" z-40 absolute left-0 bottom-10 w-full h-40 ">
+        <div className=" z-40 absolute left-0 bottom-10 w-full h-slide_img ">
           <TeacherSlideCell
             imageIDList={JSON.parse(`[${imageIDList}]`)}
             onChange={recordSlide}
@@ -258,18 +278,21 @@ const LearningRecord = ({ imageIDList }) => {
 
       <div className="z-10 left-0 bottom-0 fixed w-full h-10 flex">
         <button
-          className=" box-border w-20 h-8 py-1 px-2 ml-2 bg-yellow-300 text-sm "
+          className=" text-red-500 self-center ml-4"
           onClick={toggleIsRecord}
         >
-          {isRecord ? 'STOP' : 'RECORD'}
+          {isRecord ? (
+            <span className="flex h-4 w-4 pointer-events-none relative">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500"></span>
+            </span>
+          ) : (
+            <div className=" transition-all hover:scale-150 rounded-full hover:outline outline-white outline-1 ">
+              <BsFillRecordCircleFill />
+            </div>
+          )}
         </button>
-        <button
-          className=" box-border w-20 h-8 py-1 px-2 ml-2 bg-yellow-300 text-sm "
-          onClick={handleUpload}
-          disabled={audioURL === ''}
-        >
-          UPLOAD
-        </button>
+
         <AudioPlayer
           onPlayFn={() => {
             startReplayTyping(0, eventListTyping, setCode)
