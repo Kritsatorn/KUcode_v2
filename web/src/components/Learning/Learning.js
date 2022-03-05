@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-
 import DnDIframe from 'src/components/DnDIframe'
 import CodeEditer from 'src/components/CodeEditer'
 import SideBar from 'src/components/SideBar'
@@ -45,9 +44,13 @@ const Learning = ({
   const [isIframe, setIframeTrue, setIframeFalse, toggleIframe] =
     useToggleState(true)
 
-  const [code, setCode] = useState({
-    ...typingScript[0].value,
-  })
+  const [code, setCode] = useState(
+    typingScript.length > 0
+      ? {
+          ...typingScript[0].value,
+        }
+      : { JS: '', CSS: '', HTML: '' }
+  )
 
   const audioRef = useRef(null)
   // Typing
@@ -185,10 +188,10 @@ const Learning = ({
         <AudioPlayerCell
           id={id}
           onPlayFn={() => {
-            startReplayTyping(0, typingScript, setCode)
-            startReplayCursor(0, cursorScript, updateCursor)
-            startReplaySlide(0, slideScript, updateSlide)
-            startReplaySideBar(0, sideBarScript, setFileName)
+            typingScript && startReplayTyping(0, typingScript, setCode)
+            cursorScript && startReplayCursor(0, cursorScript, updateCursor)
+            slideScript && startReplaySlide(0, slideScript, updateSlide)
+            sideBarScript && startReplaySideBar(0, sideBarScript, setFileName)
             setIsEditing(() => false)
             setIsReplay(() => true)
           }}

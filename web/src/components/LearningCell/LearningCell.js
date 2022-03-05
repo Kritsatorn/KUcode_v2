@@ -35,7 +35,7 @@ export const QUERY = gql`
 
 export const Loading = () => <div>Loading...</div>
 
-export const Empty = () => <div>Empty</div>
+export const Empty = ({ ...rest }) => <Learning {...rest} />
 
 export const Failure = ({ error }) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
@@ -48,13 +48,6 @@ export const Success = ({
   cursorScript,
   ...rest
 }) => {
-  console.log(
-    'hee learning',
-    slideScript,
-    sideBarScript,
-    typingScript,
-    cursorScript
-  )
   const resultSlideScript = slideScript.map((script) => {
     return {
       value: {
@@ -86,10 +79,11 @@ export const Success = ({
   })
   const resultSideBarScript = sideBarScript.map((sidebar) => {
     return {
-      value: sidebar.value,
-      timeDiff: sidebar.timeDiff,
+      value: sidebar?.value,
+      timeDiff: sidebar?.timeDiff,
     }
   })
+
   return (
     <Learning
       slideScript={resultSlideScript}
