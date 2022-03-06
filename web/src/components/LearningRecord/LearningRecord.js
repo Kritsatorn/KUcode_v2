@@ -25,7 +25,10 @@ const mapLanguage = {
   html: 'HTML',
 }
 
-const LearningRecord = ({ imageIDList, name = 'name of learning 3' }) => {
+const LearningRecord = ({
+  imageIDList = [1, 2],
+  learningName = 'name of learning 3',
+}) => {
   const [fileName, setFileName] = useState(Object.keys(files)[0])
   const file = files[fileName]
   const [iframeCode, upadteIframe] = useIframe()
@@ -164,7 +167,7 @@ const LearningRecord = ({ imageIDList, name = 'name of learning 3' }) => {
   const [upload, complete] = useUploadLearning()
   const handleUpload = () => {
     const payload = {
-      name: name,
+      name: learningName,
       audioURL: audioURL,
       imageList: JSON.parse(`[${imageIDList}]`),
       cursorList: eventListCursor,

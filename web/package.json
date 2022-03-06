@@ -19,8 +19,10 @@
     "@redwoodjs/web": "0.46.1",
     "axios": "^0.26.0",
     "filestack-react": "^4.0.1",
+    "js-deep-equals": "^2.1.1",
     "prop-types": "15.8.1",
     "react": "17.0.2",
+    "react-beautiful-dnd": "^13.1.0",
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
     "react-rnd": "^10.3.5"

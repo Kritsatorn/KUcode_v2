@@ -6,7 +6,7 @@ import {
   TextField,
   Submit,
 } from '@redwoodjs/forms'
-import { PickerInline } from 'filestack-react'
+import { PickerDropPane } from 'filestack-react'
 import { useState } from 'react'
 
 const ImageForm = (props) => {
@@ -48,14 +48,14 @@ const ImageForm = (props) => {
         <FieldError name="title" className="rw-field-error" />
 
         {/* {console.log(process.env.REDWOOD_ENV_FILESTACK_API_KEY)} */}
-        <PickerInline
+        <PickerDropPane
           apikey={process.env.REDWOOD_ENV_FILESTACK_API_KEY}
           onSuccess={onFileUpload}
         >
           <div
             style={{ display: url ? 'none' : 'block', height: '500px' }}
           ></div>
-        </PickerInline>
+        </PickerDropPane>
 
         {url && (
           <div>
