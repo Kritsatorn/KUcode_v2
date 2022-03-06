@@ -1,20 +1,23 @@
-import { useEffect, useState } from 'react'
-import NewImgAllListCell from 'src/components/NewImgAllListCell'
-import NewImgListCell from 'src/components/NewImgListCell/NewImgListCell'
+import { useState } from 'react'
 import { PickerDropPane } from 'filestack-react'
 import DnDImages from 'src/components/DnDImages'
+import { useMutation } from '@redwoodjs/web'
+import { navigate, routes } from '@redwoodjs/router'
 const TEXT_GREETING = 'Welcome back, Kritsatorn Saengwenag '
 const TEXT_SLIDE = 'Your tools'
-const NewLearning = () => {
-  const [listImg, setListImg] = useState([1, 2, 3])
-  const [listImgAll, setListImgAll] = useState([1, 2, 3])
-  const handleList = (list = [], setList = () => {}, newValue = '') => {
-    !list.includes(newValue) && setList((prev) => [...prev, newValue])
+const CREATE_IMAGE_MUTATION = gql`
+  mutation CreateImageMutation($input: CreateImageInput!) {
+    createImage(input: $input) {
+      id
+    }
   }
+`
+const NewLearning = () => {
   //  [ {  title: "" , url : "" } ]
   const [uploadList, setUploadList] = useState([])
   const [nameLearning, setNameLearning] = useState('')
   const [countUpload, setCountUpload] = useState(0)
+  const [upLoadListAPI, setUpLoadListAPI] = useState([])
   const handleUpload = (response) => {
     const newUpload = {
       id: countUpload,
@@ -24,10 +27,26 @@ const NewLearning = () => {
     setUploadList((prev) => [...prev, newUpload])
     setCountUpload((prev) => prev + 1)
   }
-  const deleteUploadList = () => {}
-  useEffect(() => {
-    console.log('HEE TAD', uploadList)
-  }, [uploadList])
+  const deleteUploadList = (id, setUploadList) => {
+    setUploadList((prev) => prev.filter((up) => up.id !== id))
+  }
+  const [createImage, { loading }] = useMutation(CREATE_IMAGE_MUTATION, {
+    onCompleted: (data) => {
+      setUpLoadListAPI((prev) => [...prev, data?.createImage?.id])
+      console.log(data?.createImage?.id)
+      console.log('UP list ', upLoadListAPI)
+    },
+    onError: (error) => {
+      console.log(error)
+    },
+  })
+  const onUploadSlide = (uploadList = [], createImage) => {
+    uploadList.forEach((upload) => {
+      createImage({
+        variables: { input: { title: upload.title, url: upload.url } },
+      })
+    })
+  }
   return (
     <div className=" w-full h-full bg-green-100 ">
       <div className=" w-full h-1/6  flex justify-start items-center ">
@@ -65,11 +84,33 @@ const NewLearning = () => {
       <div className="w-full h-1/6 flex-shrink">
         <div className="mt-4 w-full text-right">
           <button
-            className="h-10 px-5 mt-8 mr-4 text-white transition-all duration-150 bg-btn-blue rounded-lg
-                      hover:shadow-xxl hover:-translate-y-2 focus:shadow-outline font-semibold text-xl "
-            onClick={''}
+            className={`
+                        h-10 px-5 mt-8 mr-4 text-white transition-all duration-150  rounded-lg
+                        hover:shadow-xxl hover:-translate-y-2 focus:shadow-outline font-semibold text-xl
+                        ${
+                          upLoadListAPI.length === 0 ||
+                          upLoadListAPI.length !== countUpload
+                            ? 'bg-btn-blue'
+                            : ' bg-red-500'
+                        }
+                      `}
+            onClick={
+              upLoadListAPI.length === 0 || upLoadListAPI.length !== countUpload
+                ? () => onUploadSlide(uploadList, createImage)
+                : () => {
+                    navigate(
+                      routes.learningRecord({
+                        imageIDList: [...upLoadListAPI],
+                        learningName: nameLearning,
+                      })
+                    )
+                  }
+            }
+            disabled={loading}
           >
-            Regular
+            {upLoadListAPI.length === 0 || upLoadListAPI.length !== countUpload
+              ? 'Create Learning'
+              : 'Go to Record'}
           </button>
         </div>
       </div>

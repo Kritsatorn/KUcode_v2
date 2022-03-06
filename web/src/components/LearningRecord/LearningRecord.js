@@ -27,7 +27,7 @@ const mapLanguage = {
 
 const LearningRecord = ({
   imageIDList = [1, 2],
-  name = 'name of learning 3',
+  learningName = 'name of learning 3',
 }) => {
   const [fileName, setFileName] = useState(Object.keys(files)[0])
   const file = files[fileName]
@@ -167,7 +167,7 @@ const LearningRecord = ({
   const [upload, complete] = useUploadLearning()
   const handleUpload = () => {
     const payload = {
-      name: name,
+      name: learningName,
       audioURL: audioURL,
       imageList: JSON.parse(`[${imageIDList}]`),
       cursorList: eventListCursor,
