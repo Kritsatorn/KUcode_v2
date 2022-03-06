@@ -75,7 +75,7 @@ const DnDImages = ({ ImgList = [] }) => {
     setListImg(items)
   }
   return (
-    <div className=" w-full h-full bg-slate-500">
+    <div className=" w-full h-full ">
       <DragDropContext onDragEnd={handelDragEnd}>
         <Droppable droppableId="listImg" direction="horizontal">
           {(provided) => (
@@ -92,12 +92,14 @@ const DnDImages = ({ ImgList = [] }) => {
                 >
                   {(provided) => (
                     <div
-                      className="  min-h-min min-w-min  m-2 bg-red-400"
+                      className="  min-h-min min-w-min box-content m-2 border-2 border-slate-400 rounded-md bg-white p-1 "
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
-                      <div className="w-52"> {title} </div>
+                      <div className="w-52 h-8 font-bold opacity-80 text-black overflow-hidden">
+                        {title}
+                      </div>
 
                       <img
                         src={url}

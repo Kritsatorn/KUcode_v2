@@ -25,7 +25,10 @@ const mapLanguage = {
   html: 'HTML',
 }
 
-const LearningRecord = ({ imageIDList, name = 'name of learning 3' }) => {
+const LearningRecord = ({
+  imageIDList = [1, 2],
+  name = 'name of learning 3',
+}) => {
   const [fileName, setFileName] = useState(Object.keys(files)[0])
   const file = files[fileName]
   const [iframeCode, upadteIframe] = useIframe()
