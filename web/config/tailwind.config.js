@@ -7,6 +7,10 @@ module.exports = {
         base: 'var(--color-bg-base)',
         'primary-blue': 'var(--color-primary-blue)',
         'btn-blue': 'var( --color-btn-blue)',
+        'palettes-mint': 'var(--color-palettes-mint)',
+        'palettes-green': 'var(--color-palettes-green)',
+        'palettes-dark-green': 'var(--color-palettes-dark-green)',
+        'palettes-cream': 'var(--color-palettes-cream)',
       },
       textColor: {
         skin: {
