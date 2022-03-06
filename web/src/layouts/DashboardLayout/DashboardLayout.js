@@ -1,4 +1,3 @@
-import logo from 'web/public/logo_transparent.png'
 import './DashBoardLayout.css'
 const DashboardLayout = ({ children }) => {
   return (
