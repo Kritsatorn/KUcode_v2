@@ -1,3 +1,5 @@
+import DnDImages from 'src/components/DnDImages'
+
 export const QUERY = gql`
   query FindNewImgListQuery {
     newImgList: images {
@@ -16,7 +18,7 @@ export const Failure = ({ error }) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ newImgList, imageIDList = [] }) => {
-  const result = newImgList.filter(({ id }) => imageIDList.includes(id))
-  return <div>{result.map((img) => JSON.stringify(img))}</div>
+export const Success = ({ newImgList, imageIDList = [], ...rest }) => {
+  const result = newImgList.filter(({ id }) => imageIDList.includes(id)) || []
+  return <DnDImages ImgList={result} {...rest} />
 }

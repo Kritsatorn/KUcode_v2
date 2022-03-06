@@ -15,8 +15,8 @@ const DashboardPage = () => {
           to Record
         </Link> */}
         <div className="bg-blue-500 flex-1 flex">
-          <div className="bg-red-400 w-1/6 h-full">SIDEbAR</div>
-          <div className=" bg-purple-500 flex-1">
+          <div className="bg-red-400  flex-1 h-full">SIDEbAR</div>
+          <div className=" bg-purple-500 w-5/6 ">
             <NewLearning />
           </div>
         </div>
