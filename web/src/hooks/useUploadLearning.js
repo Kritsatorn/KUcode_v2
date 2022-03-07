@@ -80,10 +80,10 @@ const useUploadLearning = () => {
       console.log('Upload cursor error : ', error)
     },
   })
-  const [flagIMG, setFlagIMG] = useState(false)
+  const [flagIMG, setFlagIMG] = useState(0)
   const [updateImages] = useMutation(UPDATE_IMAGES, {
     onCompleted: () => {
-      setFlagIMG(true)
+      setFlagIMG((prev) => prev + 1)
     },
     onError: (error) => {
       console.log('Upload img error : ', error)
@@ -174,7 +174,14 @@ const useUploadLearning = () => {
   const [Payload, setPayload] = useState(null)
   const [LID, setLID] = useState(null)
   useEffect(() => {
-    setComplete(flagTP && flagSB && flagSL && flagCS && flagIMG)
+    setComplete(
+      flagTP &&
+        flagSB &&
+        flagSL &&
+        flagCS &&
+        flagIMG === Payload.imageList.length
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flagTP, flagSB, flagSL, flagCS, flagIMG])
 
   const [createLearning] = useMutation(CREATE_LEARNING, {
