@@ -1,17 +1,14 @@
-import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 import { useState } from 'react'
 import NewLearning from 'src/components/NewLearning'
 import BrowseLearning from 'src/components/BrowseLearning'
-const TEXT_GREETING = 'Welcome back, Kritsatorn Saengwenag '
+import Footer from 'src/components/Footer'
 const DashboardPage = () => {
   const [tab, setTab] = useState(0)
   return (
     <>
       <MetaTags title="Dashboard" description="Dashboard page" />
-      {/* <div className="text-3xl font-extrabold opacity-90">
-          {TEXT_GREETING}
-        </div> */}
+
       <div className=" w-full h-full max-h-full bg-palettes-mint ">
         <div className="h-5/6  ">
           <div className="w-1/6 float-left h-full">
@@ -40,12 +37,14 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          <div className=" w-5/6 h-full float-right ">
+          <div className=" w-5/6 h-full float-right pb-3 ">
             {tab === 0 && <BrowseLearning />}
             {tab === 1 && <NewLearning />}
           </div>
         </div>
-        <div className=" bg-palettes-dark-green h-1/6 ">FOOTER</div>
+        <div className=" bg-palettes-dark-green h-1/6 ">
+          <Footer />
+        </div>
       </div>
     </>
   )

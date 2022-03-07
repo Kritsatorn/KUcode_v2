@@ -1,5 +1,4 @@
 import BrowseLearningCell from 'src/components/BrowseLearningCell'
-import BrowseLearningBox from 'src/components/BrowseLearningBox'
 
 const BrowseLearning = () => {
   return (
