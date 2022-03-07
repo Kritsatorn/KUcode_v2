@@ -7,6 +7,10 @@ module.exports = {
         base: 'var(--color-bg-base)',
         'primary-blue': 'var(--color-primary-blue)',
         'btn-blue': 'var( --color-btn-blue)',
+        'palettes-mint': 'var(--color-palettes-mint)',
+        'palettes-green': 'var(--color-palettes-green)',
+        'palettes-dark-green': 'var(--color-palettes-dark-green)',
+        'palettes-cream': 'var(--color-palettes-cream)',
       },
       textColor: {
         skin: {
@@ -30,6 +34,7 @@ module.exports = {
         page: 'calc(-2.5rem + 100vh)',
         slide: '45vw',
         slide_img: '140px',
+        kuy: '60vh',
       },
       width: {
         editer: 'calc(-12rem + 100% )',
@@ -51,6 +56,9 @@ module.exports = {
       },
       boxShadow: {
         xxl: 'rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px',
+      },
+      maxHeight: {
+        kuy: '60vh',
       },
     },
   },

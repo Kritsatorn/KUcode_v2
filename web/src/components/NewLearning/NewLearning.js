@@ -3,7 +3,6 @@ import { PickerDropPane } from 'filestack-react'
 import DnDImages from 'src/components/DnDImages'
 import { useMutation } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
-const TEXT_GREETING = 'Welcome back, Kritsatorn Saengwenag '
 const TEXT_SLIDE = 'Your tools'
 const CREATE_IMAGE_MUTATION = gql`
   mutation CreateImageMutation($input: CreateImageInput!) {
@@ -27,9 +26,6 @@ const NewLearning = () => {
     setUploadList((prev) => [...prev, newUpload])
     setCountUpload((prev) => prev + 1)
   }
-  const deleteUploadList = (id, setUploadList) => {
-    setUploadList((prev) => prev.filter((up) => up.id !== id))
-  }
   const [createImage, { loading }] = useMutation(CREATE_IMAGE_MUTATION, {
     onCompleted: (data) => {
       setUpLoadListAPI((prev) => [...prev, data?.createImage?.id])
@@ -48,11 +44,8 @@ const NewLearning = () => {
     })
   }
   return (
-    <div className=" w-full h-full bg-green-100 ">
+    <div className=" w-full h-full  ">
       <div className=" w-full h-1/6  flex justify-start items-center ">
-        {/* <div className="text-3xl font-extrabold opacity-90">
-          {TEXT_GREETING}
-        </div> */}
         <div className="text-3xl  opacity-90">{TEXT_SLIDE}</div>
       </div>
 

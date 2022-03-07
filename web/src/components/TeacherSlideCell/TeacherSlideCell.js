@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import TeacherSlide from 'src/components/TeacherSlide'
 export const QUERY = gql`
   query teacherSlide {
@@ -19,6 +20,13 @@ export const Failure = ({ error }) => (
 
 export const Success = ({ images, imageIDList = [1, 2], ...rest }) => {
   const result = images.filter(({ id }) => imageIDList.includes(id))
-
-  return <TeacherSlide imgSlide={result} {...rest} />
+  const [sorted, setSorted] = useState([])
+  const [idx, setIdx] = useState(0)
+  result.forEach((element) => {
+    if (element.id === imageIDList[idx]) {
+      setSorted((prev) => [...prev, element])
+      setIdx((prev) => prev + 1)
+    }
+  })
+  return <TeacherSlide imgSlide={sorted} {...rest} />
 }

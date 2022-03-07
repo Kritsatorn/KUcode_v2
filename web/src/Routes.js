@@ -10,6 +10,7 @@
 import { Router, Route, Set } from '@redwoodjs/router'
 import ImagesLayout from 'src/layouts/ImagesLayout'
 import LearningLayout from 'src/layouts/LearningLayout/'
+import DashboardLayout from 'src/layouts/DashboardLayout'
 const Routes = () => {
   return (
     <Router>
@@ -22,6 +23,8 @@ const Routes = () => {
       <Set wrap={LearningLayout}>
         <Route path="/learning/{id:Int}" page={LearningPage} name="learning" />
         <Route path="/learning-record" page={LearningRecordPage} name="learningRecord" />
+      </Set>
+      <Set wrap={DashboardLayout}>
         <Route path="/dashboard" page={DashboardPage} name="dashboard" />
       </Set>
       <Route path="/home" page={HomePage} name="home" />

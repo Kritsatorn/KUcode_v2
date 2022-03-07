@@ -33,6 +33,10 @@
         --color-primary-blue: #3b82f6;
         --color-bg-sidebar-editing: #272723;
         --color-btn-blue: #5034FF;
+        --color-palettes-mint: #D3E4CD;
+        --color-palettes-green: #ADC2A9;
+        --color-palettes-dark-green: #99A799;
+        --color-palettes-cream: #FEF5ED;
         font-family: 'Karla', sans-serif;
     }
 }

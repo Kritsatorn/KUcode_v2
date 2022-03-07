@@ -24,6 +24,14 @@ model User {
   learnings           Learning[]
 }
 
+model Course {
+  id        Int      @id @default(autoincrement())
+  name      String?
+  author    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
 model Learning {
   id          Int             @id @default(autoincrement())
   name        String?
