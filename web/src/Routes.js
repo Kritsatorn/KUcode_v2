@@ -25,9 +25,9 @@ const Routes = () => {
         <Route path="/learning-record" page={LearningRecordPage} name="learningRecord" />
       </Set>
       <Set wrap={DashboardLayout}>
-        <Route path="/dashboard" page={DashboardPage} name="dashboard" />
+        <Route path="/" page={DashboardPage} name="dashboard" />
       </Set>
-      <Route path="/home" page={HomePage} name="home" />
+      {/* <Route path="/home" page={HomePage} name="home" /> */}
       <Route notfound page={NotFoundPage} />
     </Router>
   )
