@@ -18,9 +18,8 @@ const bgLearning = [
 const BrowseLearningBox = ({
   id = 26,
   title = 'SECTION 1 : BUILD INCREMENT BUTTON',
-  description = 'Display the count',
-  backGroundImg = '',
-  percentage = 43,
+  description = 'Cotinue Learning',
+  percentage = Math.floor(Math.random() * 100),
 }) => {
   return (
     <div className="flex">
@@ -32,10 +31,7 @@ const BrowseLearningBox = ({
             src={bgLearning[Math.floor(Math.random() * 3)].imgBg}
             alt=""
           />
-          <div
-            className="absolute z-20  h-full w-full left-0 top-0 text-3xl font-bold
-          "
-          >
+          <div className="absolute z-20  h-full w-full left-0 top-0 text-3xl font-bold">
             <div className="mt-12 ml-4 float-right text-right mr-2">
               {bgLearning[Math.floor(Math.random() * 3)].title}
             </div>

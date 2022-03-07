@@ -1,3 +1,4 @@
+import BrowseLearningBox from 'src/components/BrowseLearningBox'
 export const QUERY = gql`
   query FindBrowseLearningQuery {
     browseLearning: learnings {
@@ -16,5 +17,11 @@ export const Failure = ({ error }) => (
 )
 
 export const Success = ({ browseLearning }) => {
-  return <div>{JSON.stringify(browseLearning)}</div>
+  return (
+    <>
+      {browseLearning.map(({ id, name }, index) => (
+        <BrowseLearningBox id={id} title={name} key={index} />
+      ))}
+    </>
+  )
 }
