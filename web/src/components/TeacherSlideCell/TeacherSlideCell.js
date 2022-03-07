@@ -18,7 +18,6 @@ export const Failure = ({ error }) => (
 )
 
 export const Success = ({ images, imageIDList = [1, 2], ...rest }) => {
-  const result = images.filter(({ id }) => imageIDList.includes(id))
-
+  const result = imageIDList.filter(({ id }) => images.includes(id))
   return <TeacherSlide imgSlide={result} {...rest} />
 }
