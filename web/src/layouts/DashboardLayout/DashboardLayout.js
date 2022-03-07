@@ -1,7 +1,7 @@
 import './DashBoardLayout.css'
 const DashboardLayout = ({ children }) => {
   return (
-    <div className="w-full h-screen box-boarder flex flex-col   bg-zinc-50">
+    <div className="w-full h-screen  box-boarder flex flex-col   bg-zinc-50">
       <div className="headbar w-full h-16 py-1 px-5 text-sm flex justify-start items-center  ">
         {/* <img
             className="object-contain h-32 w-32"
